@@ -44,7 +44,7 @@ namespace Atomic.Injector.Generators
         {
             try
             {
-                HandleTrees(context);
+                HandleContext(context);
             }
             catch (GeneratorException ex)
             {
@@ -56,38 +56,54 @@ namespace Atomic.Injector.Generators
             }
         }
 
-        private void HandleTrees(GeneratorExecutionContext context)
+        private void HandleContext(GeneratorExecutionContext context)
         {
             var parser = new Parser(context);
+            var sources = new List<(string ClassName, SourceText Source)>();
             
+            var containers = GetContainers(context, parser);
+            sources.AddRange(containers);
+            
+            AddSourcesToContext(context, sources);
+        }
+
+        private void AddSourcesToContext(GeneratorExecutionContext context, List<(string ClassName, SourceText Source)> sources)
+        {
+            foreach (var source in sources)
+            {
+                context.AddSource(source.ClassName, source.Source);
+            }
+        }
+
+        private List<(string ClassName, SourceText Source)> GetContainers(GeneratorExecutionContext context, Parser parser)
+        {
             var trees = parser.GetTreesWithInterface(_containerInterfaceType);
+            var containers = new List<(string ClassName, SourceText Source)>();
 
             foreach (var tree in trees)
             {
-                HandleTree(context, tree, parser);
+                var containerClasses = tree.GetClassesWithInterface(_containerInterfaceType);
+                var newContainers = GenerateContainers(context, containerClasses, parser, tree.UsingString, tree.Namespace);
+                containers.AddRange(newContainers);
             }
+
+            return containers;
         }
 
-        private void HandleTree(GeneratorExecutionContext context, Tree tree, Parser parser)
-        {
-            var usingString = tree.UsingString;
-            var namespaceString = tree.Namespace;
-
-            var containerClasses = tree.GetClassesWithInterface(_containerInterfaceType);
-
-            GenerateContainers(context, containerClasses, parser, usingString, namespaceString);
-        }
-
-        private void GenerateContainers(GeneratorExecutionContext context, List<Class> containerClasses, Parser parser,
+        private List<(string ClassName, SourceText Source)> GenerateContainers(GeneratorExecutionContext context, List<Class> containerClasses, Parser parser,
             string usingString, string namespaceString)
         {
+            var containers = new List<(string ClassName, SourceText Source)>();
             foreach (var classParser in containerClasses)
             {
-                GenerateContainer(context, parser, usingString, namespaceString, classParser);
+                var container = GenerateContainer(context, parser, usingString, namespaceString, classParser);
+                containers.Add(container);
             }
+
+            return containers;
         }
 
-        private void GenerateContainer(GeneratorExecutionContext context, Parser parser, string usingString,
+        private (string ClassName, SourceText Source) GenerateContainer(GeneratorExecutionContext context, Parser parser, string usingString,
             string namespaceString, Class classParser)
         {
             var className = classParser.ClassName;
@@ -98,7 +114,7 @@ namespace Atomic.Injector.Generators
                 new ContainerModel(usingString, namespaceString, className, propertyModels.ToArray());
 
             var generatedClass = containerModel.ToString();
-            context.AddSource($"Generated_{className}.cs", SourceText.From(generatedClass, Encoding.UTF8));
+            return ($"Generated_{namespaceString.Replace(".", "_")}_{className}.cs", SourceText.From(generatedClass, Encoding.UTF8));
         }
 
         private List<PropertyModel> GetPropertyModels(Class classParser, Parser parser)
