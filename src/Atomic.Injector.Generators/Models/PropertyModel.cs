@@ -1,8 +1,7 @@
-using System;
-using System.Linq;
 using Atomic.Injector.Generators.Helpers;
+using Atomic.Injector.Generators.Templates;
 
-namespace Atomic.Injector.Generators.Templates.Models
+namespace Atomic.Injector.Generators.Models
 {
     public class PropertyModel
     {

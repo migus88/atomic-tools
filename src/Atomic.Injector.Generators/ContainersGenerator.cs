@@ -10,7 +10,6 @@ using Atomic.Injector.Core.Interfaces;
 using Atomic.Injector.Generators.Exceptions;
 using Atomic.Injector.Generators.Helpers;
 using Atomic.Injector.Generators.Models;
-using Atomic.Injector.Generators.Templates.Models;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 

@@ -7,7 +7,6 @@ using Atomic.Generators.Tools.Exceptions;
 using Atomic.Injector.Core.Attributes;
 using Atomic.Injector.Core.Interfaces;
 using Atomic.Injector.Generators.Helpers;
-using Atomic.Injector.Generators.Templates.Models;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
