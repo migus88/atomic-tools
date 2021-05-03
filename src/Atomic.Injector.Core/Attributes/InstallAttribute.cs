@@ -25,7 +25,6 @@ namespace Atomic.Injector.Core.Attributes
     public class InstallTransientAttribute : Attribute
     {
         public Type BindTo { get; set; }
-        public string ID { get; set; } = string.Empty;
     }
     
     

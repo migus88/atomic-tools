@@ -17,19 +17,18 @@ namespace Atomic.Injector.ConsoleTest
         [InstallSingleton(BindTo = typeof(TrueFalseWriter))]
         private ITrueFalseWriter _trueFalseWriter;
 
-        [InstallTransient(ID = "Test", BindTo = typeof(TrueFalseWriter))]
+        [InstallTransient(BindTo = typeof(TrueFalseWriter))]
         private ITrueFalseWriter _testTrueFalseWriter;
 
-        [InstallTransient(ID = "Test2", BindTo = typeof(TrueFalseWriter))]
+        [InstallTransient(BindTo = typeof(TrueFalseWriter))]
         private ITrueFalseWriter _test2TrueFalseWriter;
 
-        [InstallTransient(ID = "Test3", BindTo = typeof(TrueFalseWriter))]
+        [InstallTransient(BindTo = typeof(TrueFalseWriter))]
         private ITrueFalseWriter _test3TrueFalseWriter;
 
         public void Init()
         {
             _application.Run();
-            var t = Test2TrueFalseWriter;
         }
     }
 }
