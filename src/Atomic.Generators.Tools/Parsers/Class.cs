@@ -57,6 +57,13 @@ namespace Atomic.Generators.Tools.Parsers
                 .ToList();
         }
 
+        public List<Field> GetFieldsWithAttributes()
+        {
+            return Fields
+                .Where(field => field.Attributes.Count > 0)
+                .ToList();
+        }
+
         public List<Field> GetFieldsWithAttributes(params Type[] attributeTypes)
         {
             return Fields

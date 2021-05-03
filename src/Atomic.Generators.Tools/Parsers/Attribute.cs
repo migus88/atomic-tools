@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Atomic.Generators.Tools.Helpers;
@@ -23,6 +24,11 @@ namespace Atomic.Generators.Tools.Parsers
             
             Arguments = new List<Argument>();
             InitArguments();
+        }
+
+        public bool IsAnyType(params Type[] types)
+        {
+            return types.Any(t => t.FullName == TypeName);
         }
 
         public Argument GetArgument(string name) => Arguments.FirstOrDefault(a => a.Name == name);

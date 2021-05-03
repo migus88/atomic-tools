@@ -8,24 +8,22 @@ using Atomic.Generators.Tools.Parsers;
 using Atomic.Injector.Core.Attributes;
 using Atomic.Injector.Core.Enums;
 using Atomic.Injector.Core.Interfaces;
+using Atomic.Injector.Generators.Analyzers;
 using Atomic.Injector.Generators.Enums;
 using Atomic.Injector.Generators.Exceptions;
+using Atomic.Injector.Generators.Exceptions.Analyzers;
 using Atomic.Injector.Generators.Helpers;
 using Atomic.Injector.Generators.Helpers.Identifiers;
 using Atomic.Injector.Generators.Models;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using Attribute = Atomic.Generators.Tools.Parsers.Attribute;
+using static Atomic.Injector.Generators.Helpers.Identifiers.InstallAttributeTypes;
 
 namespace Atomic.Injector.Generators
 {
     public class ContainersGenerator
     {
-        private readonly Type _containerInterfaceType = typeof(IDiContainer);
-        private readonly Type _singletonAttributeType = typeof(InstallSingletonAttribute);
-        private readonly Type _scopedAttributeType = typeof(InstallScopedAttribute);
-        private readonly Type _transientAttributeType = typeof(InstallTransientAttribute);
-        private readonly Type _injectAttributeType = typeof(InjectAttribute);
 
         private readonly GeneratorExecutionContext _context;
         private readonly Parser _parser;
@@ -46,12 +44,12 @@ namespace Atomic.Injector.Generators
                 return _containers;
             }
 
-            var trees = _parser.GetTreesWithInterface(_containerInterfaceType);
+            var trees = _parser.GetTreesWithInterface(ContainerInterfaceType);
             _containers = new List<(string ClassName, SourceText Source)>();
 
             foreach (var tree in trees)
             {
-                var containerClasses = tree.GetClassesWithInterface(_containerInterfaceType);
+                var containerClasses = tree.GetClassesWithInterface(ContainerInterfaceType);
                 var newContainers =
                     GenerateContainers(containerClasses, tree.UsingString, tree.Namespace);
                 _containers.AddRange(newContainers);
@@ -64,9 +62,12 @@ namespace Atomic.Injector.Generators
             string usingString, string namespaceString)
         {
             var containers = new List<(string ClassName, SourceText Source)>();
-            foreach (var classParser in containerClasses)
+            foreach (var @class in containerClasses)
             {
-                var container = GenerateContainer(usingString, namespaceString, classParser);
+                var analyzer = new InstallationAnalyzer(@class);
+                analyzer.AnalyzeAll();
+                
+                var container = GenerateContainer(usingString, namespaceString, @class);
                 containers.Add(container);
             }
 
@@ -90,8 +91,8 @@ namespace Atomic.Injector.Generators
 
         private List<PropertyModel> GetPropertyModels(Class @class)
         {
-            var fields = @class.GetFieldsWithAttributes(_singletonAttributeType, _scopedAttributeType,
-                _transientAttributeType);
+            var fields = @class.GetFieldsWithAttributes(SingletonAttributeType, ScopedAttributeType,
+                TransientAttributeType);
 
             return (
                 from field in fields
@@ -105,7 +106,7 @@ namespace Atomic.Injector.Generators
         private InstallModel GetInstallModel(Field field)
         {
             var attributes =
-                field.GetAttributes(_singletonAttributeType, _scopedAttributeType, _transientAttributeType);
+                field.GetAttributes(SingletonAttributeType, ScopedAttributeType, TransientAttributeType);
 
             if (attributes.Count > 1)
             {
@@ -136,12 +137,12 @@ namespace Atomic.Injector.Generators
 
         private InstallMode GetInstallMode(Attribute attribute)
         {
-            if (attribute.TypeName == _singletonAttributeType.FullName)
+            if (attribute.TypeName == SingletonAttributeType.FullName)
             {
                 return InstallMode.Singleton;
             }
             
-            if (attribute.TypeName == _scopedAttributeType.FullName)
+            if (attribute.TypeName == ScopedAttributeType.FullName)
             {
                 return InstallMode.Scoped;
             }
@@ -178,7 +179,7 @@ namespace Atomic.Injector.Generators
 
         private Constructor GetInjectableConstructor(string bindingType, Class @class)
         {
-            var constructors = @class.GetConstructorsWithAttribute(_injectAttributeType);
+            var constructors = @class.GetConstructorsWithAttribute(InjectAttributeType);
 
             if (constructors.Count > 1)
             {
