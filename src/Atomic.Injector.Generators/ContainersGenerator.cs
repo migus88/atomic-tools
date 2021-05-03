@@ -21,6 +21,7 @@ namespace Atomic.Injector.Generators
         private readonly Type _containerInterfaceType = typeof(IDiContainer);
         private readonly Type _singletonAttributeType = typeof(InstallSingletonAttribute);
         private readonly Type _scopedAttributeType = typeof(InstallScopedAttribute);
+        private readonly Type _transientAttributeType = typeof(InstallTransientAttribute);
         private readonly Type _injectAttributeType = typeof(InjectAttribute);
 
         private readonly GeneratorExecutionContext _context;
@@ -41,7 +42,7 @@ namespace Atomic.Injector.Generators
             {
                 return _containers;
             }
-            
+
             var trees = _parser.GetTreesWithInterface(_containerInterfaceType);
             _containers = new List<(string ClassName, SourceText Source)>();
 
@@ -56,7 +57,8 @@ namespace Atomic.Injector.Generators
             return _containers;
         }
 
-        private List<(string ClassName, SourceText Source)> GenerateContainers(List<Class> containerClasses, string usingString, string namespaceString)
+        private List<(string ClassName, SourceText Source)> GenerateContainers(List<Class> containerClasses,
+            string usingString, string namespaceString)
         {
             var containers = new List<(string ClassName, SourceText Source)>();
             foreach (var classParser in containerClasses)
@@ -68,7 +70,8 @@ namespace Atomic.Injector.Generators
             return containers;
         }
 
-        private (string ClassName, SourceText Source) GenerateContainer(string usingString, string namespaceString, Class @class)
+        private (string ClassName, SourceText Source) GenerateContainer(string usingString, string namespaceString,
+            Class @class)
         {
             var className = @class.ClassName;
 
@@ -84,7 +87,8 @@ namespace Atomic.Injector.Generators
 
         private List<PropertyModel> GetPropertyModels(Class @class)
         {
-            var fields = @class.GetFieldsWithAttributes(_singletonAttributeType, _scopedAttributeType);
+            var fields = @class.GetFieldsWithAttributes(_singletonAttributeType, _scopedAttributeType,
+                _transientAttributeType);
 
             return (
                 from field in fields
@@ -97,7 +101,8 @@ namespace Atomic.Injector.Generators
 
         private InstallModel GetInstallModel(Field field)
         {
-            var attributes = field.GetAttributes(_singletonAttributeType, _scopedAttributeType);
+            var attributes =
+                field.GetAttributes(_singletonAttributeType, _scopedAttributeType, _transientAttributeType);
 
             //TODO: Handle error: Only one install attribute can be assigned to a field
 

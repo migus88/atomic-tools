@@ -20,6 +20,12 @@ namespace Atomic.Injector.Core.Attributes
     {
         public string ID { get; set; } = string.Empty;
     }
+
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
+    public class InstallTransientAttribute : InstallAttribute
+    {
+        public string ID { get; set; } = string.Empty;
+    }
     
     
     
