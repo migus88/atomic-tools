@@ -25,6 +25,8 @@
         <EmbeddedResource Include="Resources\Templates\TemplateContainer.txt" />
         <EmbeddedResource Include="Resources\Templates\TemplateProperty.txt" />
         <EmbeddedResource Include="Resources\Templates\TemplatePropertyInitialization.txt" />
+        <EmbeddedResource Include="Resources\Templates\TemplateTransientInitialization.txt" />
+        <EmbeddedResource Include="Resources\Templates\TemplateTransientProperty.txt" />
     </ItemGroup>
 
     <PropertyGroup>

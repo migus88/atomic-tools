@@ -1,0 +1,1 @@
+new {{CLASS_NAME}}({{DEPENDENCIES}})
