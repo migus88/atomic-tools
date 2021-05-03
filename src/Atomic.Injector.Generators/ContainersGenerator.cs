@@ -6,12 +6,16 @@ using Atomic.Generators.Tools.Exceptions;
 using Atomic.Generators.Tools.Helpers;
 using Atomic.Generators.Tools.Parsers;
 using Atomic.Injector.Core.Attributes;
+using Atomic.Injector.Core.Enums;
 using Atomic.Injector.Core.Interfaces;
+using Atomic.Injector.Generators.Enums;
 using Atomic.Injector.Generators.Exceptions;
 using Atomic.Injector.Generators.Helpers;
+using Atomic.Injector.Generators.Helpers.Identifiers;
 using Atomic.Injector.Generators.Models;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
+using Attribute = Atomic.Generators.Tools.Parsers.Attribute;
 
 namespace Atomic.Injector.Generators
 {
@@ -92,8 +96,8 @@ namespace Atomic.Injector.Generators
             return (
                 from field in fields
                 let installModel = GetInstallModel(field)
-                let dependencies = GetDependencyStrings(installModel.BindingType, fields)
-                select new PropertyModel(field.TypeName, installModel.BindingType, field.Name, installModel.IsLazy,
+                let dependencies = GetDependencyStrings(installModel.BoundType, fields)
+                select new PropertyModel(field.TypeName, installModel.BoundType, field.Name, installModel,
                     dependencies.ToArray())
             ).ToList();
         }
@@ -103,28 +107,46 @@ namespace Atomic.Injector.Generators
             var attributes =
                 field.GetAttributes(_singletonAttributeType, _scopedAttributeType, _transientAttributeType);
 
-            //TODO: Handle error: Only one install attribute can be assigned to a field
+            if (attributes.Count > 1)
+            {
+                throw new MultipleInstallAttributesException(field.Name);
+            }
+
+            var attribute = attributes.First();
 
             var installModel = new InstallModel
             {
-                IsLazy = false,
-                BindingType = field.TypeName
+                IsLazy = false, 
+                BoundType = field.TypeName, 
+                Mode = GetInstallMode(attribute),
             };
 
-            foreach (var attribute in attributes)
-            {
-                //TODO: Replace strings with debuggable values
-                var lazyArgument = attribute.GetArgument("InitMode");
-                installModel.IsLazy = lazyArgument != null && lazyArgument.Value == "InitMode.Lazy";
 
-                var bindArgument = attribute.GetArgument("BindTo");
-                installModel.BindingType = bindArgument != null ? bindArgument.Value : field.TypeName;
+            var lazyArgument = attribute.GetArgument(InstallAttributeArguments.InitMode);
+            installModel.IsLazy = lazyArgument != null && lazyArgument.Value == InitMode.Lazy.ToString();
 
-                //TODO: Implement
-                var idArgument = attribute.GetArgument("ID");
-            }
+            var bindArgument = attribute.GetArgument(InstallAttributeArguments.BindTo);
+            installModel.BoundType = bindArgument != null ? bindArgument.Value : field.TypeName;
+
+            //TODO: Implement
+            var idArgument = attribute.GetArgument(InstallAttributeArguments.ID);
 
             return installModel;
+        }
+
+        private InstallMode GetInstallMode(Attribute attribute)
+        {
+            if (attribute.TypeName == _singletonAttributeType.FullName)
+            {
+                return InstallMode.Singleton;
+            }
+            
+            if (attribute.TypeName == _scopedAttributeType.FullName)
+            {
+                return InstallMode.Scoped;
+            }
+
+            return InstallMode.Transient;
         }
 
         private List<string> GetDependencyStrings(string bindingType, List<Field> fields)

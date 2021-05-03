@@ -17,13 +17,13 @@ namespace Atomic.Injector.ConsoleTest
         [InstallSingleton(BindTo = typeof(TrueFalseWriter))]
         private ITrueFalseWriter _trueFalseWriter;
 
-        [InstallScoped(ID = "Test", BindTo = typeof(TrueFalseWriter))]
+        [InstallTransient(ID = "Test", BindTo = typeof(TrueFalseWriter))]
         private ITrueFalseWriter _testTrueFalseWriter;
 
-        [InstallScoped(ID = "Test2", BindTo = typeof(TrueFalseWriter), InitMode = InitMode.Lazy)]
+        [InstallTransient(ID = "Test2", BindTo = typeof(TrueFalseWriter), InitMode = InitMode.Lazy)]
         private ITrueFalseWriter _test2TrueFalseWriter;
 
-        [InstallScoped(ID = "Test3", BindTo = typeof(TrueFalseWriter), InitMode = InitMode.Lazy)]
+        [InstallTransient(ID = "Test3", BindTo = typeof(TrueFalseWriter), InitMode = InitMode.Lazy)]
         private ITrueFalseWriter _test3TrueFalseWriter;
 
         public void Init()

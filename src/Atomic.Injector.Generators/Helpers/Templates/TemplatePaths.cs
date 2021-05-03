@@ -1,5 +1,6 @@
 namespace Atomic.Injector.Generators.Helpers.Templates
 {
+    //TODO: Auto-generate this class
     public static class TemplatePaths
     {
         private const string TemplatesNamespace = "Resources.Templates.";

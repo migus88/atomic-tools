@@ -42,7 +42,7 @@ namespace Atomic.Injector.Generators.Models
 
         private string GetConstructorInitializationString() =>
             string.Join("\r\n\t\t\t",
-                Properties.Where(p => !p.IsLazy)
+                Properties.Where(p => !p.InstallModel.IsLazy)
                     .Select(p => p.GetConstructorInitializationString()).ToList());
     }
 }

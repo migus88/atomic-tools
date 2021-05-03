@@ -14,17 +14,21 @@ namespace Atomic.Injector.Core.Attributes
     public class InstallSingletonAttribute : InstallAttribute
     {
     }
-
+    
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
-    public class InstallScopedAttribute : InstallAttribute
+    public abstract class InstallNonSingletonAttribute : InstallAttribute
     {
         public string ID { get; set; } = string.Empty;
     }
 
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
-    public class InstallTransientAttribute : InstallAttribute
+    public class InstallScopedAttribute : InstallNonSingletonAttribute
     {
-        public string ID { get; set; } = string.Empty;
+    }
+
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
+    public class InstallTransientAttribute : InstallNonSingletonAttribute
+    {
     }
     
     
