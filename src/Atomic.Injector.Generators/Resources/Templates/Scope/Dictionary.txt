@@ -1,0 +1,5 @@
+private readonly System.Collections.Generic.Dictionary<string, {{CLASS_NAME}}> {{PRIVATE_FIELD_NAME}}Scopes = new System.Collections.Generic.Dictionary<string, {{CLASS_NAME}}>()
+{
+    ["{{SCOPE}}"] = new {{CLASS_NAME}}({{DEPENDENCIES}}), //NonLazy
+    ["{{SCOPE}}"] = null, //Lazy
+};

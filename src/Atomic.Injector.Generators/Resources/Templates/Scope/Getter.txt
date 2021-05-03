@@ -1,0 +1,4 @@
+public {{CLASS_NAME}} Get{{PROPERTY_NAME}}(string id)
+{
+    return {{PRIVATE_FIELD_NAME}}Scopes[id] ?? ({{PRIVATE_FIELD_NAME}}Scopes[id] = {{INITIALIZATION}});
+} 

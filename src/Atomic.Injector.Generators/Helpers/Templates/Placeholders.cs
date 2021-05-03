@@ -14,5 +14,6 @@ namespace Atomic.Injector.Generators.Helpers.Templates
         public const string PrivateFieldName = OpeningBrackets + "PRIVATE_FIELD_NAME" + ClosingBrackets;
         public const string Dependencies = OpeningBrackets + "DEPENDENCIES" + ClosingBrackets;
         public const string Initialization = OpeningBrackets + "INITIALIZATION" + ClosingBrackets;
+        public const string Scope = OpeningBrackets + "SCOPE" + ClosingBrackets;
     }
 }
