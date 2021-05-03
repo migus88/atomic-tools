@@ -19,7 +19,7 @@ namespace Atomic.Injector.Generators.Templates.Models
 
         static PropertyModel()
         {
-            _propertyTemplate = ResourcesHelpers.GetResourceText(TemplatePaths.PrivateProperty);
+            _propertyTemplate = ResourcesHelpers.GetResourceText(TemplatePaths.Property);
             _propertyInitializationTemplate = ResourcesHelpers.GetResourceText(TemplatePaths.PropertyInitialization);
             _constructorInitializationTemplate = ResourcesHelpers.GetResourceText(TemplatePaths.ConstructorInitialization);
         }

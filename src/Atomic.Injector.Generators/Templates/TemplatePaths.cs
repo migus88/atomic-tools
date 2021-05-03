@@ -6,6 +6,6 @@ namespace Atomic.Injector.Generators.Templates
         public const string Container = TemplatePrefix + "Container";
         public const string PropertyInitialization = TemplatePrefix + "PropertyInitialization";
         public const string ConstructorInitialization = TemplatePrefix + "ConstructorInitialization";
-        public const string PrivateProperty = TemplatePrefix + "PrivateProperty";
+        public const string Property = TemplatePrefix + "Property";
     }
 }

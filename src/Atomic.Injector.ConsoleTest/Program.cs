@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Atomic.Injector.ConsoleTest
 {
@@ -8,6 +9,7 @@ namespace Atomic.Injector.ConsoleTest
         {
             var container = new DiContainer();
             container.Init();
+            container.Application
         }
     }
 }

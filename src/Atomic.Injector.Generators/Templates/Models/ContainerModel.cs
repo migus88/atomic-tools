@@ -32,11 +32,11 @@ namespace Atomic.Injector.Generators.Templates.Models
                 .Replace(Placeholders.UsingStatement, UsingStatement)
                 .Replace(Placeholders.Namespace, Namespace)
                 .Replace(Placeholders.ClassName, ClassName)
-                .Replace(Placeholders.PrivateProperties, GetPrivatePropertiesString())
+                .Replace(Placeholders.Properties, GetPropertiesString())
                 .Replace(Placeholders.NonLazyInitialization, GetConstructorInitializationString());
         }
 
-        private string GetPrivatePropertiesString() =>
+        private string GetPropertiesString() =>
             string.Join("\r\n\t\t", Properties.Select(p => p.GetPropertyString()).ToList());
 
         private string GetConstructorInitializationString() =>

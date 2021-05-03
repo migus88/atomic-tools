@@ -23,7 +23,7 @@
     <ItemGroup>
         <EmbeddedResource Include="Resources\Templates\TemplateConstructorInitialization.txt" />
         <EmbeddedResource Include="Resources\Templates\TemplateContainer.txt" />
-        <EmbeddedResource Include="Resources\Templates\TemplatePrivateProperty.txt" />
+        <EmbeddedResource Include="Resources\Templates\TemplateProperty.txt" />
         <EmbeddedResource Include="Resources\Templates\TemplatePropertyInitialization.txt" />
     </ItemGroup>
 

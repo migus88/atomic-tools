@@ -4,7 +4,7 @@ namespace {{NAMESPACE}}
 {
     public sealed partial class {{CLASS_NAME}}
     {
-        {{PRIVATE_PROPERTIES}}
+        {{PROPERTIES}}
         
         public {{CLASS_NAME}}()
         {
