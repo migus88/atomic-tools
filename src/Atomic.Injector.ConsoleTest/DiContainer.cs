@@ -20,10 +20,10 @@ namespace Atomic.Injector.ConsoleTest
         [InstallTransient(ID = "Test", BindTo = typeof(TrueFalseWriter))]
         private ITrueFalseWriter _testTrueFalseWriter;
 
-        [InstallTransient(ID = "Test2", BindTo = typeof(TrueFalseWriter), InitMode = InitMode.Lazy)]
+        [InstallTransient(ID = "Test2", BindTo = typeof(TrueFalseWriter))]
         private ITrueFalseWriter _test2TrueFalseWriter;
 
-        [InstallTransient(ID = "Test3", BindTo = typeof(TrueFalseWriter), InitMode = InitMode.Lazy)]
+        [InstallTransient(ID = "Test3", BindTo = typeof(TrueFalseWriter))]
         private ITrueFalseWriter _test3TrueFalseWriter;
 
         public void Init()

@@ -7,6 +7,6 @@ namespace Atomic.Injector.Generators.Helpers.Identifiers
     {
         public const string BindTo = nameof(InstallAttribute.BindTo);
         public const string InitMode = nameof(InstallAttribute.InitMode);
-        public const string ID = nameof(InstallNonSingletonAttribute.ID);
+        public const string ID = nameof(InstallScopedAttribute.ID);
     }
 }
