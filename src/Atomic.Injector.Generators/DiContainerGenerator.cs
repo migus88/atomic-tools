@@ -27,8 +27,8 @@ namespace Atomic.Injector.Generators
         public void Initialize(GeneratorInitializationContext context)
         {
 #if DEBUG
-
-            /*if (!Debugger.IsAttached)
+/*
+            if (!Debugger.IsAttached)
             {
                 Debugger.Launch();
             }*/

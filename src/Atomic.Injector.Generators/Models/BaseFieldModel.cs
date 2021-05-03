@@ -39,8 +39,12 @@ namespace Atomic.Injector.Generators.Models
                     installDefinition, dependencies),
                 InstallMode.Transient => new TransientFieldModel(interfaceName, className, privateFieldName,
                     installDefinition, dependencies),
-                _ => null
+                InstallMode.Scoped => new ScopedFieldModel(interfaceName, className, privateFieldName,
+                    installDefinition, dependencies),
+                _ => throw new ArgumentOutOfRangeException()
             };
         }
+        
+        protected string GetDependenciesString() => string.Join(", ", _dependencies);
     }
 }

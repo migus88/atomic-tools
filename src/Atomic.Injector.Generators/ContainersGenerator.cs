@@ -116,24 +116,24 @@ namespace Atomic.Injector.Generators
 
             var attribute = attributes.First();
 
-            var installModel = new InstallDefinition
+            var installDefinition = new InstallDefinition
             {
                 IsLazy = false,
                 BoundType = field.TypeName,
-                Mode = GetInstallMode(attribute),
+                Mode = GetInstallMode(attribute)
             };
 
 
             var lazyArgument = attribute.GetArgument(InstallAttributeArguments.InitMode);
-            installModel.IsLazy = lazyArgument != null && lazyArgument.Value == InitMode.Lazy.ToFullString();
+            installDefinition.IsLazy = lazyArgument != null && lazyArgument.Value == InitMode.Lazy.ToFullString();
 
             var bindArgument = attribute.GetArgument(InstallAttributeArguments.BindTo);
-            installModel.BoundType = bindArgument != null ? bindArgument.Value : field.TypeName;
+            installDefinition.BoundType = bindArgument != null ? bindArgument.Value : field.TypeName;
 
-            //TODO: Implement
             var idArgument = attribute.GetArgument(InstallAttributeArguments.ID);
+            installDefinition.ID = idArgument?.Value ?? string.Empty;
 
-            return installModel;
+            return installDefinition;
         }
 
         private InstallMode GetInstallMode(Attribute attribute)

@@ -42,7 +42,5 @@ namespace Atomic.Injector.Generators.Models
                 .Replace(Placeholders.ClassName, _className)
                 .Replace(Placeholders.Dependencies, GetDependenciesString());
         }
-        
-        private string GetDependenciesString() => string.Join(", ", _dependencies);
     }
 }

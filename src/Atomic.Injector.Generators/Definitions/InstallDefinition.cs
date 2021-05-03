@@ -7,5 +7,6 @@ namespace Atomic.Injector.Generators.Definitions
         public string BoundType { get; set; }
         public bool IsLazy { get; set; }
         public InstallMode Mode { get; set; }
+        public string ID { get; set; }
     }
 }
