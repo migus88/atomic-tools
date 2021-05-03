@@ -9,7 +9,6 @@ namespace Atomic.Injector.ConsoleTest
         {
             var container = new DiContainer();
             container.Init();
-            container.Application
         }
     }
 }
