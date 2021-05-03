@@ -1,0 +1,14 @@
+{{USING}}
+
+namespace {{NAMESPACE}}
+{
+    public sealed partial class {{CLASS_NAME}}
+    {
+        {{PRIVATE_PROPERTIES}}
+        
+        public {{CLASS_NAME}}()
+        {
+            {{NON_LAZY_INITIALIZATION}}
+        }
+    }
+}

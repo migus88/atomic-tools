@@ -1,0 +1,1 @@
+private {{CLASS_NAME}} {{PROPERTY_NAME}} => {{PRIVATE_FIELD_NAME}} != default ? {{PRIVATE_FIELD_NAME}} : ({{INITIALIZATION}}) ;
