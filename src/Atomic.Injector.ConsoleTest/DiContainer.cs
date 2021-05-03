@@ -29,6 +29,7 @@ namespace Atomic.Injector.ConsoleTest
         public void Init()
         {
             _application.Run();
+            var t = Test2TrueFalseWriter;
         }
     }
 }

@@ -6,9 +6,13 @@ namespace {{NAMESPACE}}
     {
         {{PROPERTIES}}
         
+        {{PRIVATE_FIELDS}}
+        
         public {{CLASS_NAME}}()
         {
             {{NON_LAZY_INITIALIZATION}}
         }
+        
+        {{METHODS}}
     }
 }

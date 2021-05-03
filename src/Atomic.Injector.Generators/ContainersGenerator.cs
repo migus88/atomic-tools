@@ -9,11 +9,13 @@ using Atomic.Injector.Core.Attributes;
 using Atomic.Injector.Core.Enums;
 using Atomic.Injector.Core.Interfaces;
 using Atomic.Injector.Generators.Analyzers;
+using Atomic.Injector.Generators.Definitions;
 using Atomic.Injector.Generators.Enums;
 using Atomic.Injector.Generators.Exceptions;
 using Atomic.Injector.Generators.Exceptions.Analyzers;
 using Atomic.Injector.Generators.Helpers;
 using Atomic.Injector.Generators.Helpers.Identifiers;
+using Atomic.Injector.Generators.Interfaces;
 using Atomic.Injector.Generators.Models;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
@@ -24,7 +26,6 @@ namespace Atomic.Injector.Generators
 {
     public class ContainersGenerator
     {
-
         private readonly GeneratorExecutionContext _context;
         private readonly Parser _parser;
 
@@ -66,7 +67,7 @@ namespace Atomic.Injector.Generators
             {
                 var analyzer = new InstallationAnalyzer(@class);
                 analyzer.AnalyzeAll();
-                
+
                 var container = GenerateContainer(usingString, namespaceString, @class);
                 containers.Add(container);
             }
@@ -79,31 +80,31 @@ namespace Atomic.Injector.Generators
         {
             var className = @class.ClassName;
 
-            var propertyModels = GetPropertyModels(@class);
+            var fieldModels = GetFieldModels(@class);
 
             var containerModel =
-                new ContainerModel(usingString, namespaceString, className, propertyModels.ToArray());
+                new ContainerModel(usingString, namespaceString, className, fieldModels.ToArray());
 
             var generatedClass = containerModel.ToString();
-            return ($"Generated_{namespaceString.Replace(".", "_")}_{className}.cs",
+            return ($"{namespaceString}.{className}.Generated.cs",
                 SourceText.From(generatedClass, Encoding.UTF8));
         }
 
-        private List<PropertyModel> GetPropertyModels(Class @class)
+        private List<IFieldModel> GetFieldModels(Class @class)
         {
             var fields = @class.GetFieldsWithAttributes(SingletonAttributeType, ScopedAttributeType,
                 TransientAttributeType);
 
             return (
                 from field in fields
-                let installModel = GetInstallModel(field)
-                let dependencies = GetDependencyStrings(installModel.BoundType, fields)
-                select new PropertyModel(field.TypeName, installModel.BoundType, field.Name, installModel,
-                    dependencies.ToArray())
+                let installDefinition = GetInstallDefinition(field)
+                let dependencies = GetDependencyStrings(installDefinition.BoundType, fields)
+                select BaseFieldModel.GetFieldModel(field.TypeName, installDefinition.BoundType, field.Name,
+                    installDefinition, dependencies.ToArray())
             ).ToList();
         }
 
-        private InstallModel GetInstallModel(Field field)
+        private InstallDefinition GetInstallDefinition(Field field)
         {
             var attributes =
                 field.GetAttributes(SingletonAttributeType, ScopedAttributeType, TransientAttributeType);
@@ -115,16 +116,16 @@ namespace Atomic.Injector.Generators
 
             var attribute = attributes.First();
 
-            var installModel = new InstallModel
+            var installModel = new InstallDefinition
             {
-                IsLazy = false, 
-                BoundType = field.TypeName, 
+                IsLazy = false,
+                BoundType = field.TypeName,
                 Mode = GetInstallMode(attribute),
             };
 
 
             var lazyArgument = attribute.GetArgument(InstallAttributeArguments.InitMode);
-            installModel.IsLazy = lazyArgument != null && lazyArgument.Value == InitMode.Lazy.ToString();
+            installModel.IsLazy = lazyArgument != null && lazyArgument.Value == InitMode.Lazy.ToFullString();
 
             var bindArgument = attribute.GetArgument(InstallAttributeArguments.BindTo);
             installModel.BoundType = bindArgument != null ? bindArgument.Value : field.TypeName;
@@ -141,7 +142,7 @@ namespace Atomic.Injector.Generators
             {
                 return InstallMode.Singleton;
             }
-            
+
             if (attribute.TypeName == ScopedAttributeType.FullName)
             {
                 return InstallMode.Scoped;
@@ -161,8 +162,14 @@ namespace Atomic.Injector.Generators
                 : constructor
                     .Parameters
                     .Select(constructorParameter => GetDependencyField(bindingType, fields, constructorParameter))
-                    .Select(dependencyField => dependencyField.Name.ToPascalCase())
+                    .Select(ComposeDependencyString)
                     .ToList();
+        }
+
+        private string ComposeDependencyString(Field field)
+        {
+            //TODO: Implement scoped ID
+            return field.HasAttribute(ScopedAttributeType) ? $"{field.Name.ToPascalCase()}()" : field.Name.ToPascalCase();
         }
 
         private Class GetClassOfType(string bindingType)
