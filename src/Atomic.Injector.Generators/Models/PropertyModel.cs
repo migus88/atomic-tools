@@ -1,5 +1,5 @@
 using Atomic.Injector.Generators.Helpers;
-using Atomic.Injector.Generators.Templates;
+using Atomic.Injector.Generators.Helpers.Templates;
 
 namespace Atomic.Injector.Generators.Models
 {
@@ -18,9 +18,9 @@ namespace Atomic.Injector.Generators.Models
 
         static PropertyModel()
         {
-            _propertyTemplate = ResourcesHelpers.GetResourceText(TemplatePaths.Property);
-            _propertyInitializationTemplate = ResourcesHelpers.GetResourceText(TemplatePaths.PropertyInitialization);
-            _constructorInitializationTemplate = ResourcesHelpers.GetResourceText(TemplatePaths.ConstructorInitialization);
+            _propertyTemplate = ResourcesHelpers.GetTextResource(TemplatePaths.Property);
+            _propertyInitializationTemplate = ResourcesHelpers.GetTextResource(TemplatePaths.PropertyInitialization);
+            _constructorInitializationTemplate = ResourcesHelpers.GetTextResource(TemplatePaths.ConstructorInitialization);
         }
 
         public PropertyModel(string interfaceName, string className, string privateFieldName, bool isLazy, string[] dependencies)

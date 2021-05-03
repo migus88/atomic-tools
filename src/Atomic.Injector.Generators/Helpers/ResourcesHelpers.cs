@@ -5,13 +5,20 @@ namespace Atomic.Injector.Generators.Helpers
 {
     public static class ResourcesHelpers
     {
-        public static string GetResourceText(string name)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var defaultNamespace = assembly.ManifestModule.ScopeName.Replace(".dll", "");
-            var fullName = $"{defaultNamespace}.Resources.Templates.{name}.txt";
+        private static Assembly _assembly;
+        private static string _defaultNamespace;
 
-            using var stream = assembly.GetManifestResourceStream(fullName);
+        static ResourcesHelpers()
+        {
+            _assembly = Assembly.GetExecutingAssembly();
+            _defaultNamespace = _assembly.ManifestModule.ScopeName.Replace(".dll", "");
+        }
+        
+        public static string GetTextResource(string name)
+        {
+            var fullName = $"{_defaultNamespace}.{name}.txt";
+
+            using var stream = _assembly.GetManifestResourceStream(fullName);
 
             if (stream == null)
             {

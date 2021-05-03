@@ -1,4 +1,4 @@
-namespace Atomic.Injector.Generators.Templates
+namespace Atomic.Injector.Generators.Helpers.Templates
 {
     public static class Placeholders
     {

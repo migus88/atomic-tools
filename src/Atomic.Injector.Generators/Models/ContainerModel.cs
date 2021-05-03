@@ -1,6 +1,6 @@
 using System.Linq;
 using Atomic.Injector.Generators.Helpers;
-using Atomic.Injector.Generators.Templates;
+using Atomic.Injector.Generators.Helpers.Templates;
 
 namespace Atomic.Injector.Generators.Models
 {
@@ -15,7 +15,7 @@ namespace Atomic.Injector.Generators.Models
 
         static ContainerModel()
         {
-            _template = ResourcesHelpers.GetResourceText(TemplatePaths.Container);
+            _template = ResourcesHelpers.GetTextResource(TemplatePaths.Container);
         }
 
 
