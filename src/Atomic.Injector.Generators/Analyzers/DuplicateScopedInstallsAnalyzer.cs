@@ -9,13 +9,13 @@ using static Atomic.Injector.Generators.Helpers.Identifiers.InstallAttributeType
 namespace Atomic.Injector.Generators.Analyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class DuplicateTransientInstallsAnalyzer : DiagnosticAnalyzer
+    public class DuplicateScopedInstallsAnalyzer : DiagnosticAnalyzer
     {
-        private const string DiagnosticID = "ATOM01";
-        private const string Title = "Multiple Transient installs for the same type";
+        private const string DiagnosticID = "ATOM02";
+        private const string Title = "Multiple Scoped installs for the same type";
 
         private const string MessageFormat =
-            "Multiple fields of the same type can't be registered as Transient. Consider adding another InstallTransient attribute to the same field with different ID.";
+            "Multiple fields of the same type can't be registered as Scoped more than once. Consider adding another InstallScoped attribute to the same field.";
 
         private const string Category = "Declaration";
 
@@ -36,12 +36,11 @@ namespace Atomic.Injector.Generators.Analyzers
         {
             var tree = new Tree(context.SemanticModel);
 
-
             var classes = tree.GetClassesWithInterface(ContainerInterfaceType);
 
             foreach (var @class in classes)
             {
-                var fields = @class.GetFieldsWithAttributes(TransientAttributeType);
+                var fields = @class.GetFieldsWithAttributes(ScopedAttributeType);
 
                 var diagnostics = fields
                     .GroupBy(f => f.TypeName)
