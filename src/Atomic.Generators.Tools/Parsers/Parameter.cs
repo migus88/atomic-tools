@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
@@ -33,6 +34,16 @@ namespace Atomic.Generators.Tools.Parsers
 
             Attributes = new List<Attribute>();
             InitAttributes();
+        }
+
+        public bool HasAttribute(Type type)
+        {
+            return Attributes != null && Attributes.Any(a => a.IsAnyType(type));
+        }
+
+        public Attribute GetAttribute(Type type)
+        {
+            return Attributes?.FirstOrDefault(a => a.IsAnyType(type));
         }
 
         private void InitAttributes()

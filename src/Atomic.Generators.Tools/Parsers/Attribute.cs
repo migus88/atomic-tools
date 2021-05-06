@@ -31,7 +31,9 @@ namespace Atomic.Generators.Tools.Parsers
             return types.Any(t => t.FullName == TypeName);
         }
 
-        public Argument GetArgument(string name) => Arguments.FirstOrDefault(a => a.Name == name);
+        public bool HasArgument(string name) => Arguments != null && Arguments.Any(a => a.Name == name);
+
+        public Argument GetArgument(string name) => Arguments?.FirstOrDefault(a => a.Name == name);
 
         private string GetTypeName()
         {

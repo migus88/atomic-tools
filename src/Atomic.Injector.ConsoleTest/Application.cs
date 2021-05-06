@@ -9,7 +9,7 @@ namespace Atomic.Injector.ConsoleTest
         private readonly ITrueFalseWriter _trueFalseWriter;
 
         [Inject]
-        public Application(IDebugWriter debugWriter, ITrueFalseWriter trueFalseWriter)
+        public Application(IDebugWriter debugWriter, [Inject(ID = "Test2")] ITrueFalseWriter trueFalseWriter)
         {
             _debugWriter = debugWriter;
             _trueFalseWriter = trueFalseWriter;

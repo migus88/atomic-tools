@@ -131,7 +131,7 @@ namespace Atomic.Injector.Generators
 
                 definitions.Add(installDefinition);
             }
-            
+
             UpdateDependencyStrings(ref definitions, allFields);
 
             return definitions;
@@ -156,26 +156,70 @@ namespace Atomic.Injector.Generators
         {
             foreach (var installDefinition in installDefinitions)
             {
-                var @class = GetClassOfType(installDefinition.BoundType);
-
-                var constructor = GetInjectableConstructor(installDefinition.BoundType, @class);
-
-                var dependencies = constructor == null
-                    ? new List<string>()
-                    : constructor
-                        .Parameters
-                        .Select(constructorParameter => GetDependencyField(installDefinition.BoundType, allFields, constructorParameter))
-                        .Select(ComposeDependencyString)
-                        .ToList();
-
-                installDefinition.Dependencies = dependencies.ToArray();
+                UpdateDependencies(installDefinition, allFields);
             }
         }
 
-        private string ComposeDependencyString(Field field)
+        private void UpdateDependencies(InstallDefinition installDefinition, List<Field> allFields)
         {
-            //TODO: Implement scoped ID
-            return field.HasAttribute(ScopedAttributeType) ? $"Get{field.Name.ToPascalCase()}()" : field.Name.ToPascalCase();
+            var @class = GetClassOfType(installDefinition.BoundType);
+            var constructor = GetInjectableConstructor(installDefinition.BoundType, @class);
+
+            if (constructor == null)
+            {
+                installDefinition.Dependencies.Add(new DependencyDefinition());
+                return;
+            }
+
+            foreach (var parameter in constructor.Parameters)
+            {
+                var dependency = new DependencyDefinition(parameter.Type);
+
+                if (parameter.HasAttribute(InjectAttributeType))
+                {
+                    dependency.Mode = InstallMode.Scoped;
+                    
+                    var attribute = parameter.GetAttribute(InjectAttributeType);
+
+                    if (attribute.HasArgument(InstallAttributeArguments.ID))
+                    {
+                        dependency.ID = attribute.GetArgument(InstallAttributeArguments.ID).Value;
+                    }
+                }
+                else
+                {
+                    dependency.Mode = InstallMode.Singleton | InstallMode.Transient;
+                }
+
+                var dependencyField = FindDependencyField(dependency, allFields);
+                dependency.PropertyName = dependencyField.Name.ToPascalCase();
+
+                installDefinition.Dependencies.Add(dependency);
+            }
+        }
+
+        private Field FindDependencyField(DependencyDefinition dependency, List<Field> allFields)
+        {
+            if (dependency.Mode.HasFlag(InstallMode.Scoped))
+            {
+                return (
+                    from field in allFields
+                    where field.HasAttribute(ScopedAttributeType) && field.TypeName == dependency.TypeName
+                    let attributes = field.GetAttributes(ScopedAttributeType)
+                    from attribute in attributes
+                    where attribute.HasArgument(InstallAttributeArguments.ID)
+                    let argument = attribute.GetArgument(InstallAttributeArguments.ID)
+                    where argument.Value == dependency.ID
+                    select field
+                ).FirstOrDefault();
+            }
+
+            return (
+                from field in allFields
+                where field.HasAnyAttribute(SingletonAttributeType, TransientAttributeType) &&
+                      field.TypeName == dependency.TypeName
+                select field
+            ).FirstOrDefault();
         }
 
         private Class GetClassOfType(string bindingType)
@@ -211,20 +255,6 @@ namespace Atomic.Injector.Generators
             }
 
             return constructor;
-        }
-
-        private static Field GetDependencyField(string bindingType, List<Field> fields, Parameter constructorParameter)
-        {
-            //TODO: Handle inline InjectAttribute and remove FirstOrDefault
-            var dependencyField = fields.GetFieldsOfType(constructorParameter.Type).FirstOrDefault();
-
-            if (dependencyField == null)
-            {
-                throw new GeneratorException(
-                    $"Can't find dependency for '{bindingType}' of type: '{constructorParameter.Type}'");
-            }
-
-            return dependencyField;
         }
     }
 }

@@ -11,19 +11,17 @@ namespace Atomic.Injector.ConsoleTest
         [InstallSingleton]
         private Application _application;
 
-        [InstallSingleton(InitMode = InitMode.Lazy, BindTo = typeof(DebugWriter))]
+        [InstallTransient(BindTo = typeof(DebugWriter))]
         private IDebugWriter _debugWriter;
         
         [InstallScoped(ID = "Test", BindTo = typeof(TrueFalseWriter))]
         [InstallScoped(ID = "Test2", BindTo = typeof(TrueFalseWriter), InitMode = InitMode.Lazy)]
         private ITrueFalseWriter _scopedTrueFalseWriter;
 
-        [InstallSingleton(BindTo = typeof(TrueFalseWriter))]
-        private ITrueFalseWriter _trueFalseWriter;
-
         public void Init()
         {
             _application.Run();
+            
         }
     }
 }

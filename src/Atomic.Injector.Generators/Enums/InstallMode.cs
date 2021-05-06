@@ -1,9 +1,12 @@
+using System;
+
 namespace Atomic.Injector.Generators.Enums
 {
+    [Flags]
     public enum InstallMode
     {
-        Singleton = 0,
-        Scoped = 1,
-        Transient = 2
+        Singleton = 1 << 1,
+        Scoped = 1 << 2,
+        Transient = 1 << 3
     }
 }

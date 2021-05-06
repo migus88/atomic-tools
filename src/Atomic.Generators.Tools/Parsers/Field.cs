@@ -42,6 +42,11 @@ namespace Atomic.Generators.Tools.Parsers
             return Attributes.Where(attribute => attributeTypes.Any(at => at.FullName == attribute.TypeName)).ToList();
         }
 
+        public Attribute GetAttribute(Type attributeType)
+        {
+            return Attributes.FirstOrDefault(attribute => attribute.TypeName == attributeType.FullName);
+        }
+
         private void InitAttributes()
         {
             var attributeSyntaxes = _fieldDeclarationSyntax.AttributeLists.SelectMany(al => al.Attributes).ToList();

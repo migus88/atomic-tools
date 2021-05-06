@@ -54,8 +54,11 @@ namespace Atomic.Injector.Generators.Models
             };
         }
 
-        protected static string GetDependenciesString(string[] dependencies) =>
-            dependencies == null || dependencies.Length == 0 ? string.Empty : string.Join(", ", dependencies);
+        protected static string GetDependenciesString(IEnumerable<DependencyDefinition> dependencies)
+        {
+            var dependencyStrings = dependencies.Select(d => d.ToString()).ToArray();
+            return string.Join(", ", dependencyStrings);
+        }
 
         protected static string GetTabSymbols(int count)
         {

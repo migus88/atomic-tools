@@ -22,17 +22,15 @@ namespace Atomic.Injector.Generators
     [Generator]
     public class DiContainerGenerator : ISourceGenerator
     {
-
-
         public void Initialize(GeneratorInitializationContext context)
         {
 #if DEBUG
-            /*
+/*
             if (!Debugger.IsAttached)
             {
                 Debugger.Launch();
             }
-            */
+*/
 #endif
         }
 
@@ -49,6 +47,9 @@ namespace Atomic.Injector.Generators
             catch (Exception ex)
             {
                 context.ShowError(nameof(DiContainerGenerator), ex);
+#if DEBUG
+                throw;
+#endif
             }
         }
 
@@ -61,11 +62,12 @@ namespace Atomic.Injector.Generators
             var containersGenerator = new ContainersGenerator(context, parser);
             var containers = containersGenerator.GetContainers();
             sources.AddRange(containers);
-            
+
             AddSourcesToContext(context, sources);
         }
 
-        private void AddSourcesToContext(GeneratorExecutionContext context, List<(string ClassName, SourceText Source)> sources)
+        private void AddSourcesToContext(GeneratorExecutionContext context,
+            List<(string ClassName, SourceText Source)> sources)
         {
             foreach (var source in sources)
             {

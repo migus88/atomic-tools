@@ -5,19 +5,36 @@ using Atomic.Injector.ConsoleTest.Interfaces;
 
 namespace Atomic.Injector.ConsoleTest
 {
-    public sealed partial class DiContainer
+    public sealed partial class DiContainerTest
     {
-        private Application Application =>  _application ?? (_application = new Application(DebugWriter, TrueFalseWriter));
-        private IDebugWriter DebugWriter => _debugWriter ?? (_debugWriter = new DebugWriter());
-        private ITrueFalseWriter TrueFalseWriter => _trueFalseWriter ?? (_trueFalseWriter = new TrueFalseWriter(DebugWriter));
-        private ITrueFalseWriter TestTrueFalseWriter => _testTrueFalseWriter ?? (_testTrueFalseWriter = new TrueFalseWriter(DebugWriter));
-        private ITrueFalseWriter Test2TrueFalseWriter => _test2TrueFalseWriter ?? (_test2TrueFalseWriter = new TrueFalseWriter(DebugWriter)); 
         
-        public DiContainer()
+        private Application _application;
+        private IDebugWriter _debugWriter;
+        private ITrueFalseWriter _trueFalseWriter;
+
+        public Application SingletonApplication => _application ?? (_application = new Application(null, null));
+        public Application TransientApplication => new Application(null, null);
+        public Atomic.Injector.ConsoleTest.Interfaces.ITrueFalseWriter TrueFalseWriter => _trueFalseWriter != default ? _trueFalseWriter : (_trueFalseWriter = new Atomic.Injector.ConsoleTest.Implementations.TrueFalseWriter(DebugWriter));
+
+
+        //Scoped only
+        private readonly Dictionary<string, Application> _applicationScopes;
+        private readonly Dictionary<string, Func<Application>> _applicationScopeFactories;
+
+        public Application GetApplication(string id) => _applicationScopeFactories[id]();
+
+        public DiContainerTest()
         {
-            _application = new Application(DebugWriter, TrueFalseWriter);
-            _trueFalseWriter = new TrueFalseWriter(DebugWriter);
-            _testTrueFalseWriter = new TrueFalseWriter(DebugWriter);
+            _applicationScopeFactories = new Dictionary<string, Func<Application>>()
+            {
+                ["NonLazyTest"] = () => _applicationScopes["NonLazyTest"] == default ? (_applicationScopes["NonLazyTest"] = new Application(null, TrueFalseWriter)) : _applicationScopes["NonLazyTest"], 
+                ["Lazy"] = null,
+            };
+            _applicationScopes = new Dictionary<string, Application>()
+            {
+                ["NonLazyTest"] = this.GetApplication("NonLazyTest"), //NonLazy
+                ["Lazy"] = null,
+            };
         }
     }
 }*/
