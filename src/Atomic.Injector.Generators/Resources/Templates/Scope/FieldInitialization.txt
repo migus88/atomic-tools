@@ -1,0 +1,4 @@
+{{PRIVATE_FIELD_NAME}}Scopes = new System.Collections.Generic.Dictionary<string, {{CLASS_NAME}}>()
+            {
+{{INITIALIZATION}}
+            };

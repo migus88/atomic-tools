@@ -10,7 +10,7 @@ namespace {{NAMESPACE}}
         
         public {{CLASS_NAME}}()
         {
-            {{NON_LAZY_INITIALIZATION}}
+{{NON_LAZY_INITIALIZATION}}
         }
         
         {{METHODS}}

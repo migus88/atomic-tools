@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Atomic.Injector.Generators.Definitions;
 using Atomic.Injector.Generators.Enums;
 using Atomic.Injector.Generators.Helpers;
@@ -20,9 +21,7 @@ namespace Atomic.Injector.Generators.Models
             _constructorInitializationTemplate = ResourcesHelpers.GetTextResource(TemplatePaths.ConstructorInitialization);
         }
         
-        public SingletonFieldModel(string interfaceName, string className, string privateFieldName,
-            InstallDefinition installDefinition, string[] dependencies) : base(interfaceName, className,
-            privateFieldName, installDefinition, dependencies)
+        public SingletonFieldModel(List<InstallDefinition> installDefinitions) : base(installDefinitions)
         {
         }
 
@@ -30,26 +29,28 @@ namespace Atomic.Injector.Generators.Models
             GetPropertyString(_propertyTemplate);
 
         public override string GetConstructorString() => 
-            _installDefinition.IsLazy ? string.Empty : GetInitializationString(_constructorInitializationTemplate);
+            _firstDefinition.IsLazy ? string.Empty : GetInitializationString(_constructorInitializationTemplate, true, true);
 
         private string GetPropertyString(string template)
         {
             return template
-                .Replace(Placeholders.ClassName, _interfaceName)
-                .Replace(Placeholders.PropertyName, PropertyName)
-                .Replace(Placeholders.PrivateFieldName, _privateFieldName)
+                .Replace(Placeholders.ClassName, _firstDefinition.InterfaceName)
+                .Replace(Placeholders.PropertyName, _firstDefinition.PropertyName)
+                .Replace(Placeholders.PrivateFieldName, _firstDefinition.PrivateFieldName)
                 .Replace(Placeholders.Initialization, GetPropertyInitializationString());
         }
 
         private string GetPropertyInitializationString() => 
             GetInitializationString(_propertyInitializationTemplate);
         
-        private string GetInitializationString(string template)
+        private string GetInitializationString(string template, bool includeTabulation = false, bool includeLineBreak = false)
         {
-            return template
-                .Replace(Placeholders.PrivateFieldName, _privateFieldName)
-                .Replace(Placeholders.ClassName, _className)
-                .Replace(Placeholders.Dependencies, GetDependenciesString());
+            var generatedCode = template
+                .Replace(Placeholders.PrivateFieldName, _firstDefinition.PrivateFieldName)
+                .Replace(Placeholders.ClassName, _firstDefinition.BoundType)
+                .Replace(Placeholders.Dependencies, GetDependenciesString(_firstDefinition.Dependencies));
+
+            return $"{(includeTabulation ? GetTabSymbols(3) : string.Empty )}{generatedCode}{(includeLineBreak ? LineBreakSymbol : string.Empty)}";
         }
     }
 }

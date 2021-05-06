@@ -1,0 +1,4 @@
+{{PRIVATE_FIELD_NAME}}ScopeFactories = new System.Collections.Generic.Dictionary<string, System.Func<{{CLASS_NAME}}>>()
+            {
+{{INITIALIZATION}}
+            };

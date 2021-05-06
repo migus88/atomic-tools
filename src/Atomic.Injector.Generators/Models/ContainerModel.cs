@@ -9,7 +9,7 @@ namespace Atomic.Injector.Generators.Models
     {
         private const string PropertySeparator = "\r\n\t\t";
         private const string PrivateFieldSeparator = "\r\n\t\t";
-        private const string ConstructorSeparator = "\r\n\t\t\t";
+        private const string ConstructorSeparator = "\r\n";
         private const string MethodSeparator = "\r\n\r\n\t\t";
         
         public string UsingStatement { get; }

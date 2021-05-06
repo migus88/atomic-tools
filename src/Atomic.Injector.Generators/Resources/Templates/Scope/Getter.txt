@@ -1,8 +1,1 @@
-public {{CLASS_NAME}} Get{{PROPERTY_NAME}}(string id)
-        {
-            if (!{{PRIVATE_FIELD_NAME}}Scopes.ContainsKey(id))
-            {
-                {{PRIVATE_FIELD_NAME}}Scopes[id] = null;
-            }
-            return {{PRIVATE_FIELD_NAME}}Scopes[id] ?? ({{PRIVATE_FIELD_NAME}}Scopes[id] = {{INITIALIZATION}});
-        } 
+public {{CLASS_NAME}} Get{{PROPERTY_NAME}}(string id) => {{PRIVATE_FIELD_NAME}}ScopeFactories[id]();

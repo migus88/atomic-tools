@@ -25,10 +25,14 @@
         <EmbeddedResource Include="Resources\Templates\Container.txt" />
         <EmbeddedResource Include="Resources\Templates\Property.txt" />
         <EmbeddedResource Include="Resources\Templates\PropertyInitialization.txt" />
+        <EmbeddedResource Include="Resources\Templates\Scope\FactoriesInitialization.txt" />
+        <EmbeddedResource Include="Resources\Templates\Scope\FieldGetter.txt" />
+        <EmbeddedResource Include="Resources\Templates\Scope\FieldInitialization.txt" />
+        <EmbeddedResource Include="Resources\Templates\Scope\FactoriesField.txt" />
+        <EmbeddedResource Include="Resources\Templates\Scope\FieldNullGetter.txt" />
         <EmbeddedResource Include="Resources\Templates\Scope\Getter.txt" />
-        <EmbeddedResource Include="Resources\Templates\Scope\Initialization.txt" />
-        <EmbeddedResource Include="Resources\Templates\Scope\Dictionary.txt" />
-        <EmbeddedResource Include="Resources\Templates\Scope\DictionaryInitialization.txt" />
+        <EmbeddedResource Include="Resources\Templates\Scope\FactoryGetter.txt" />
+        <EmbeddedResource Include="Resources\Templates\Scope\InstanceField.txt" />
         <EmbeddedResource Include="Resources\Templates\TransientInitialization.txt" />
         <EmbeddedResource Include="Resources\Templates\TransientProperty.txt" />
     </ItemGroup>

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Atomic.Injector.Generators.Definitions;
 using Atomic.Injector.Generators.Enums;
 using Atomic.Injector.Generators.Helpers;
@@ -18,9 +19,7 @@ namespace Atomic.Injector.Generators.Models
             _propertyInitializationTemplate = ResourcesHelpers.GetTextResource(TemplatePaths.TransientInitialization);
         }
         
-        public TransientFieldModel(string interfaceName, string className, string privateFieldName,
-            InstallDefinition installDefinition, string[] dependencies) : base(interfaceName, className,
-            privateFieldName, installDefinition, dependencies)
+        public TransientFieldModel(List<InstallDefinition> installDefinitions) : base(installDefinitions)
         {
         }
 
@@ -29,18 +28,18 @@ namespace Atomic.Injector.Generators.Models
         private string GetPropertyString(string template)
         {
             return template
-                .Replace(Placeholders.ClassName, _interfaceName)
-                .Replace(Placeholders.PropertyName, PropertyName)
-                .Replace(Placeholders.PrivateFieldName, _privateFieldName)
+                .Replace(Placeholders.ClassName, _firstDefinition.InterfaceName)
+                .Replace(Placeholders.PropertyName, _firstDefinition.PropertyName)
+                .Replace(Placeholders.PrivateFieldName, _firstDefinition.PrivateFieldName)
                 .Replace(Placeholders.Initialization, GetInitializationString());
         }
         
         private string GetInitializationString()
         {
             return _propertyInitializationTemplate
-                .Replace(Placeholders.PrivateFieldName, _privateFieldName)
-                .Replace(Placeholders.ClassName, _className)
-                .Replace(Placeholders.Dependencies, GetDependenciesString());
+                .Replace(Placeholders.PrivateFieldName, _firstDefinition.PrivateFieldName)
+                .Replace(Placeholders.ClassName, _firstDefinition.BoundType)
+                .Replace(Placeholders.Dependencies, GetDependenciesString(_firstDefinition.Dependencies));
         }
     }
 }

@@ -15,11 +15,15 @@ namespace Atomic.Injector.Generators.Helpers.Templates
         public static class Scope
         {
             private const string ScopePrefix = TemplatesNamespace + "Scope.";
-
-            public const string Dictionary = ScopePrefix + "Dictionary";
-            public const string DictionaryInitialization = ScopePrefix + "DictionaryInitialization";
+            
+            public const string FactoriesField = ScopePrefix + "FactoriesField";
+            public const string FactoriesInitialization = ScopePrefix + "FactoriesInitialization";
+            public const string FactoryGetter = ScopePrefix + "FactoryGetter";
+            public const string FieldGetter = ScopePrefix + "FieldGetter";
+            public const string FieldNullGetter = ScopePrefix + "FieldNullGetter";
+            public const string FieldInitialization = ScopePrefix + "FieldInitialization";
             public const string Getter = ScopePrefix + "Getter";
-            public const string Initialization = ScopePrefix + "Initialization";
+            public const string InstanceField = ScopePrefix + "InstanceField";
         }
     }
 }

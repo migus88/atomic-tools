@@ -97,43 +97,44 @@ namespace Atomic.Injector.Generators
 
             return (
                 from field in fields
-                let installDefinition = GetInstallDefinition(field)
-                let dependencies = GetDependencyStrings(installDefinition.BoundType, fields)
-                select BaseFieldModel.GetFieldModel(field.TypeName, installDefinition.BoundType, field.Name,
-                    installDefinition, dependencies.ToArray())
+                let installDefinitions = GetInstallDefinitions(field, field.TypeName, fields)
+                select BaseFieldModel.GetFieldModel(installDefinitions)
             ).ToList();
         }
 
-        private InstallDefinition GetInstallDefinition(Field field)
+        private List<InstallDefinition> GetInstallDefinitions(Field field, string interfaceName, List<Field> allFields)
         {
             var attributes =
                 field.GetAttributes(SingletonAttributeType, ScopedAttributeType, TransientAttributeType);
 
-            if (attributes.Count > 1)
+            var definitions = new List<InstallDefinition>();
+
+            foreach (var attribute in attributes)
             {
-                throw new MultipleInstallAttributesException(field.Name);
+                var installDefinition = new InstallDefinition
+                {
+                    InterfaceName = interfaceName,
+                    IsLazy = false,
+                    BoundType = field.TypeName,
+                    Mode = GetInstallMode(attribute),
+                    PrivateFieldName = field.Name
+                };
+
+                var lazyArgument = attribute.GetArgument(InstallAttributeArguments.InitMode);
+                installDefinition.IsLazy = lazyArgument != null && lazyArgument.Value == InitMode.Lazy.ToFullString();
+
+                var bindArgument = attribute.GetArgument(InstallAttributeArguments.BindTo);
+                installDefinition.BoundType = bindArgument != null ? bindArgument.Value : field.TypeName;
+
+                var idArgument = attribute.GetArgument(InstallAttributeArguments.ID);
+                installDefinition.ID = idArgument?.Value ?? string.Empty;
+
+                definitions.Add(installDefinition);
             }
+            
+            UpdateDependencyStrings(ref definitions, allFields);
 
-            var attribute = attributes.First();
-
-            var installDefinition = new InstallDefinition
-            {
-                IsLazy = false,
-                BoundType = field.TypeName,
-                Mode = GetInstallMode(attribute)
-            };
-
-
-            var lazyArgument = attribute.GetArgument(InstallAttributeArguments.InitMode);
-            installDefinition.IsLazy = lazyArgument != null && lazyArgument.Value == InitMode.Lazy.ToFullString();
-
-            var bindArgument = attribute.GetArgument(InstallAttributeArguments.BindTo);
-            installDefinition.BoundType = bindArgument != null ? bindArgument.Value : field.TypeName;
-
-            var idArgument = attribute.GetArgument(InstallAttributeArguments.ID);
-            installDefinition.ID = idArgument?.Value ?? string.Empty;
-
-            return installDefinition;
+            return definitions;
         }
 
         private InstallMode GetInstallMode(Attribute attribute)
@@ -151,25 +152,30 @@ namespace Atomic.Injector.Generators
             return InstallMode.Transient;
         }
 
-        private List<string> GetDependencyStrings(string bindingType, List<Field> fields)
+        private void UpdateDependencyStrings(ref List<InstallDefinition> installDefinitions, List<Field> allFields)
         {
-            var @class = GetClassOfType(bindingType);
+            foreach (var installDefinition in installDefinitions)
+            {
+                var @class = GetClassOfType(installDefinition.BoundType);
 
-            var constructor = GetInjectableConstructor(bindingType, @class);
+                var constructor = GetInjectableConstructor(installDefinition.BoundType, @class);
 
-            return constructor == null
-                ? new List<string>()
-                : constructor
-                    .Parameters
-                    .Select(constructorParameter => GetDependencyField(bindingType, fields, constructorParameter))
-                    .Select(ComposeDependencyString)
-                    .ToList();
+                var dependencies = constructor == null
+                    ? new List<string>()
+                    : constructor
+                        .Parameters
+                        .Select(constructorParameter => GetDependencyField(installDefinition.BoundType, allFields, constructorParameter))
+                        .Select(ComposeDependencyString)
+                        .ToList();
+
+                installDefinition.Dependencies = dependencies.ToArray();
+            }
         }
 
         private string ComposeDependencyString(Field field)
         {
             //TODO: Implement scoped ID
-            return field.HasAttribute(ScopedAttributeType) ? $"{field.Name.ToPascalCase()}()" : field.Name.ToPascalCase();
+            return field.HasAttribute(ScopedAttributeType) ? $"Get{field.Name.ToPascalCase()}()" : field.Name.ToPascalCase();
         }
 
         private Class GetClassOfType(string bindingType)

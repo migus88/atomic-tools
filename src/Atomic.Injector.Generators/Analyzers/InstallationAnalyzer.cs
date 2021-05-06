@@ -18,6 +18,7 @@ namespace Atomic.Injector.Generators.Analyzers
 
         public void AnalyzeAll()
         {
+            return;
             AnalyzeInstallFields();
         }
 

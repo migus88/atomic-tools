@@ -1,0 +1,1 @@
+[{{SCOPE}}] = () => {{PRIVATE_FIELD_NAME}}Scopes[{{SCOPE}}] == default ? ({{PRIVATE_FIELD_NAME}}Scopes[{{SCOPE}}] = new {{CLASS_NAME}}({{DEPENDENCIES}})) : {{PRIVATE_FIELD_NAME}}Scopes[{{SCOPE}}],

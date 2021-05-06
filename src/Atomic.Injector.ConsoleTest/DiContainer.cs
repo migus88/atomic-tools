@@ -15,6 +15,7 @@ namespace Atomic.Injector.ConsoleTest
         private IDebugWriter _debugWriter;
         
         [InstallScoped(ID = "Test", BindTo = typeof(TrueFalseWriter))]
+        [InstallScoped(ID = "Test2", BindTo = typeof(TrueFalseWriter), InitMode = InitMode.Lazy)]
         private ITrueFalseWriter _scopedTrueFalseWriter;
 
         [InstallSingleton(BindTo = typeof(TrueFalseWriter))]
