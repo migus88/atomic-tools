@@ -9,7 +9,7 @@ namespace Atomic.Injector.ConsoleTest
     public partial class DiContainer : IDiContainer
     {
         [InstallSingleton]
-        private Application _application2;
+        private Application _application;
         
         [InstallScoped(ID = "Test", BindTo = typeof(TrueFalseWriter))]
         [InstallScoped(ID = "Test2", BindTo = typeof(TrueFalseWriter), InitMode = InitMode.Lazy)]

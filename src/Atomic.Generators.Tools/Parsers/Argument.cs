@@ -8,6 +8,7 @@ namespace Atomic.Generators.Tools.Parsers
     {
         public string Name { get; }
         public string Value { get; }
+        public Location Location { get; }
         
         
         private readonly AttributeArgumentSyntax _attributeSyntax;
@@ -18,6 +19,7 @@ namespace Atomic.Generators.Tools.Parsers
             _attributeSyntax = attributeSyntax;
             _semanticModel = semanticModel;
 
+            Location = attributeSyntax.GetLocation();
             Name = attributeSyntax.NameEquals?.Name.ToString() ?? string.Empty;
             Value = attributeSyntax.Expression.ToString();
 
