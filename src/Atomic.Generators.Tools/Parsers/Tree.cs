@@ -16,18 +16,37 @@ namespace Atomic.Generators.Tools.Parsers
 
 
         private readonly SyntaxTree _tree;
-        private readonly GeneratorExecutionContext _context;
         private readonly SyntaxNode _root;
         private readonly SemanticModel _semanticModel;
         private readonly NamespaceDeclarationSyntax _namespaceDeclarationSyntax;
 
+        
+        public Tree(SemanticModel semanticModel)
+        {
+            _tree = semanticModel.SyntaxTree;
+            _root = _tree.GetRoot();
+
+            _semanticModel = semanticModel;
+            _namespaceDeclarationSyntax = GetNamespaceDeclarationSyntax();
+
+            Classes = new List<Class>();
+            
+            var classDeclarationSyntaxes = GetClassDeclarationSyntaxes();
+            foreach (var classDeclarationSyntax in classDeclarationSyntaxes)
+            {
+                Classes.Add(new Class(_semanticModel, classDeclarationSyntax));
+            }
+
+            Namespace = GetNamespaceString();
+            UsingString = GetUsingString();
+        }
+        
         public Tree(SyntaxTree tree, GeneratorExecutionContext context)
         {
             _tree = tree;
-            _context = context;
             _root = tree.GetRoot();
 
-            _semanticModel = _context.Compilation.GetSemanticModel(tree);
+            _semanticModel = context.Compilation.GetSemanticModel(tree);
             _namespaceDeclarationSyntax = GetNamespaceDeclarationSyntax();
 
             Classes = new List<Class>();
@@ -76,7 +95,7 @@ namespace Atomic.Generators.Tools.Parsers
                 return string.Empty;
             }
 
-            return _context.Compilation.GetCompilationNamespace(symbol)?.ToString() ?? string.Empty;
+            return _semanticModel.Compilation.GetCompilationNamespace(symbol)?.ToString() ?? string.Empty;
         }
 
         private NamespaceDeclarationSyntax GetNamespaceDeclarationSyntax() =>

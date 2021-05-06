@@ -65,9 +65,6 @@ namespace Atomic.Injector.Generators
             var containers = new List<(string ClassName, SourceText Source)>();
             foreach (var @class in containerClasses)
             {
-                var analyzer = new InstallationAnalyzer(@class);
-                analyzer.AnalyzeAll();
-
                 var container = GenerateContainer(usingString, namespaceString, @class);
                 containers.Add(container);
             }

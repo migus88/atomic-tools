@@ -12,8 +12,7 @@ namespace Atomic.Generators.Tools.Parsers
         public string Name { get; }
         public string TypeName { get; }
         public List<Attribute> Attributes { get; }
-
-        public TextSpan Span => _fieldDeclarationSyntax.Span;
+        public Location Location => _fieldDeclarationSyntax.Declaration.GetLocation();
 
         private readonly FieldDeclarationSyntax _fieldDeclarationSyntax;
         private readonly SemanticModel _semanticModel;
