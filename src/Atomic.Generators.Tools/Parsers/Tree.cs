@@ -12,8 +12,10 @@ namespace Atomic.Generators.Tools.Parsers
         public string Namespace { get; }
         public string UsingString { get; }
         public List<Class> Classes { get; }
-        
+        public SyntaxTree SyntaxTree => _tree;
 
+
+        private readonly SyntaxTree _tree;
         private readonly GeneratorExecutionContext _context;
         private readonly SyntaxNode _root;
         private readonly SemanticModel _semanticModel;
@@ -21,6 +23,7 @@ namespace Atomic.Generators.Tools.Parsers
 
         public Tree(SyntaxTree tree, GeneratorExecutionContext context)
         {
+            _tree = tree;
             _context = context;
             _root = tree.GetRoot();
 

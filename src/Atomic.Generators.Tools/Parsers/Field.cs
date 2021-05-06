@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
 
 namespace Atomic.Generators.Tools.Parsers
 {
@@ -11,6 +12,8 @@ namespace Atomic.Generators.Tools.Parsers
         public string Name { get; }
         public string TypeName { get; }
         public List<Attribute> Attributes { get; }
+
+        public TextSpan Span => _fieldDeclarationSyntax.Span;
 
         private readonly FieldDeclarationSyntax _fieldDeclarationSyntax;
         private readonly SemanticModel _semanticModel;

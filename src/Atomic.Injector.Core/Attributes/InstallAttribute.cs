@@ -21,7 +21,8 @@ namespace Atomic.Injector.Core.Attributes
         public string ID { get; set; } = string.Empty;
     }
 
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
+    //TODO: Implement transient scope
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
     public class InstallTransientAttribute : Attribute
     {
         public Type BindTo { get; set; }
