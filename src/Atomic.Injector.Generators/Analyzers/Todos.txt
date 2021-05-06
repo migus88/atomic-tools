@@ -1,13 +1,14 @@
 +1. No multiple same type transient installs - must declare multiple attributes on the same field
 +2. No multiple same type scoped installs - must declare multiple attributes on the same field
-3. No multiple same type singleton installs
++3. No multiple same type singleton installs
 4. No same ids for the same type scoped installs
 5. All install fields must be private
 6. If container has a constructor - must trigger base empty constructor
 7. Same field cannot have different install attributes - only same type
 8. Dependencies either must not have constructors, or must have a constructor marked with Inject attribute
-9. If dependency constructor references scoped installation the ID must exist
++9. If dependency constructor references scoped installation the ID must exist
 10. All dependencies in installed classes must be installed
 11. Inject attribute on constructor argument must have ID
 12. Inject attribute cannot be assigned to constructor argument if this type is not registered as scoped
 13. Type registered as singleton, cannot be registered as scoped or transient
+14. Interfaces with installation attribute must provide BindTo argument
