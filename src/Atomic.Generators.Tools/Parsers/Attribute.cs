@@ -11,14 +11,17 @@ namespace Atomic.Generators.Tools.Parsers
     {
         public string TypeName { get; }
         public List<Argument> Arguments { get; }
+        public Location Location => _location;
 
         private readonly AttributeSyntax _attributeSyntax;
         private readonly SemanticModel _semanticModel;
+        private readonly Location _location;
 
         public Attribute(AttributeSyntax attributeSyntax, SemanticModel semanticModel)
         {
             _attributeSyntax = attributeSyntax;
             _semanticModel = semanticModel;
+            _location = attributeSyntax.GetLocation();
 
             TypeName = GetTypeName();
             
