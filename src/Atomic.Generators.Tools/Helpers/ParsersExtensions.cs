@@ -3,6 +3,7 @@ using Atomic.Generators.Tools.Enums;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using CSharpExtensions = Microsoft.CodeAnalysis.CSharpExtensions;
 
 namespace Atomic.Generators.Tools.Helpers
 {
@@ -10,19 +11,21 @@ namespace Atomic.Generators.Tools.Helpers
     {
         public static Visibility GetVisibility(this MemberDeclarationSyntax declarationSyntax)
         {
-            var isProtected = declarationSyntax.DescendantTokens(t => t.IsKind(SyntaxKind.ProtectedKeyword)).Any();
+            var tokens = declarationSyntax.DescendantTokens().ToArray();
+            
+            var isProtected = tokens.Any(t => t.IsKind(SyntaxKind.ProtectedKeyword));
             if (isProtected)
             {
                 return Visibility.Protected;
             }
             
-            var isPublic = declarationSyntax.DescendantTokens(t => t.IsKind(SyntaxKind.PublicKeyword)).Any();
+            var isPublic = tokens.Any(t => t.IsKind(SyntaxKind.PublicKeyword));
             if (isPublic)
             {
                 return Visibility.Public;
             }
             
-            var isInternal = declarationSyntax.DescendantTokens(t => t.IsKind(SyntaxKind.InternalKeyword)).Any();
+            var isInternal = tokens.Any(t => t.IsKind(SyntaxKind.InternalKeyword));
             if (isInternal)
             {
                 return Visibility.Internal;
