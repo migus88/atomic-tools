@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Atomic.Generators.Tools.Enums;
+using Atomic.Generators.Tools.Helpers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -13,6 +15,7 @@ namespace Atomic.Generators.Tools.Parsers
         public List<Attribute> Attributes { get; }
         public List<Field> Fields { get; }
         public List<Constructor> Constructors { get; }
+        public Visibility Visibility { get; set; }
 
         private readonly INamedTypeSymbol _classSymbol;
         private readonly SemanticModel _semanticModel;
@@ -26,6 +29,7 @@ namespace Atomic.Generators.Tools.Parsers
             _classSymbol = GetClassSymbol();
 
             ClassName = GetClassNameString();
+            Visibility = _classDeclarationSyntax.GetVisibility();
 
             Attributes = new List<Attribute>();
             InitAttributes();

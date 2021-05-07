@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using Atomic.Generators.Tools.Enums;
+using Atomic.Generators.Tools.Helpers;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
@@ -12,6 +16,7 @@ namespace Atomic.Generators.Tools.Parsers
         public string Name { get; }
         public string TypeName { get; }
         public List<Attribute> Attributes { get; }
+        public Visibility Visibility { get; }
         public Location Location => _fieldDeclarationSyntax.Declaration.GetLocation();
 
         private readonly FieldDeclarationSyntax _fieldDeclarationSyntax;
@@ -22,8 +27,9 @@ namespace Atomic.Generators.Tools.Parsers
             _fieldDeclarationSyntax = fieldDeclarationSyntax;
             _semanticModel = semanticModel;
 
-            TypeName = semanticModel.GetTypeInfo(fieldDeclarationSyntax.Declaration.Type).Type?.ToString() ?? string.Empty;
+            TypeName = ModelExtensions.GetTypeInfo(semanticModel, fieldDeclarationSyntax.Declaration.Type).Type?.ToString() ?? string.Empty;
             Name = _fieldDeclarationSyntax.Declaration.Variables.FirstOrDefault()?.ToString() ?? string.Empty;
+            Visibility = _fieldDeclarationSyntax.GetVisibility();
 
             Attributes = new List<Attribute>();
             InitAttributes();
