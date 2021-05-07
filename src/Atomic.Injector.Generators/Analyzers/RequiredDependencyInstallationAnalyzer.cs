@@ -19,7 +19,7 @@ namespace Atomic.Injector.Generators.Analyzers
 
         private const string MessageFormat = "Not all dependencies are installed";
 
-        private const string Category = "Declaration";
+        private const string Category = "Initialization";
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 

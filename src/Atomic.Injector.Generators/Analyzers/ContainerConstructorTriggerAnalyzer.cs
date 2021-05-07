@@ -14,9 +14,9 @@ namespace Atomic.Injector.Generators.Analyzers
     public class ContainerConstructorTriggerAnalyzer : DiagnosticAnalyzer
     {
         private const string DiagnosticID = AnalyzerID.ContainerConstructorTrigger;
-        private const string Title = "Container don't trigger interncal constructor";
-        private const string MessageFormat = "Container constructors must trigger internal constuctors: ': this()'";
-        private const string Category = "Declaration";
+        private const string Title = "Container doesn't trigger internal constructor";
+        private const string MessageFormat = "Container constructors must trigger internal constructors: ': this()'";
+        private const string Category = "Initialization";
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 

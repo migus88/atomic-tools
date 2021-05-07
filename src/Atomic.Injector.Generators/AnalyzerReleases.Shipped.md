@@ -4,14 +4,14 @@
 
 Rule ID | Category | Severity | Notes
 --------|----------|----------|-------
-ATDI001  | Declaration  | Error    | ATDI001_DuplicateTransientInstallsAnalyzer, [Documentation](https://google.com)
-ATDI002  | Declaration  | Error    | ATDI002_DuplicateScopedInstallsAnalyzer, [Documentation](https://google.com)
-ATDI003  | Declaration  | Error    | ATDI003_DuplicateSingletonInstallsAnalyzer, [Documentation](https://google.com)
-ATDI004  | Declaration  | Error    | ATDI004_DuplicateScopedIDDeclarationAnalyzer, [Documentation](https://google.com)
-ATDI005  | Declaration  | Error    | ATDI005_NonPrivateInstallFieldAnalyzer, [Documentation](https://google.com)
-ATDI006  | Declaration  | Error    | ATDI006_ContainerEmptyConstructorAnalyzer, [Documentation](https://google.com)
-ATDI007  | Declaration  | Error    | ATDI007_ContainerConstructorTriggerAnalyzer, [Documentation](https://google.com)
-ATDI008  | Declaration  | Error    | ATDI008_MultipleDifferentInstallersOnSameFieldAnalyzer, [Documentation](https://google.com)
-ATDI009  | Declaration  | Error    | ATDI009_DependencyConstructorsInjectAttributeAnalyzer, [Documentation](https://google.com)
-ATDI010  | Declaration  | Error    | ATDI010_MissingScopedIDDeclarationAnalyzer, [Documentation](https://google.com)
-ATDI011  | Declaration  | Error    | ATDI011_RequiredDependencyInstallationAnalyzer, [Documentation](https://google.com)
+ATDI001  | Declaration  | Error    | [DuplicateTransientInstallsAnalyzer](https://google.com) <br> Multiple Transient installs for the same type
+ATDI002  | Declaration  | Error    | [DuplicateScopedInstallsAnalyzer](https://google.com) <br> Multiple Scoped installs for the same type
+ATDI003  | Declaration  | Error    | [DuplicateSingletonInstallsAnalyzer](https://google.com) <br> Multiple Singleton installs for the same type
+ATDI004  | Declaration  | Error    | [DuplicateScopedIDDeclarationAnalyzer](https://google.com) <br> Multiple Scoped installs for the same type with the same ID
+ATDI005  | Declaration  | Error    | [NonPrivateInstallFieldAnalyzer](https://google.com) <br> Install field is not private
+ATDI006  | Declaration  | Error    | [ContainerEmptyConstructorAnalyzer](https://google.com) <br> Container can't have an empty constructor
+ATDI007  | Initialization  | Error    | [ContainerConstructorTriggerAnalyzer](https://google.com) <br> Container doesn't trigger internal constructor
+ATDI008  | Declaration  | Error    | [MultipleDifferentInstallersOnSameFieldAnalyzer](https://google.com) <br> Multiple different Install Attributes
+ATDI009  | Declaration  | Error    | [DependencyConstructorsInjectAttributeAnalyzer](https://google.com) <br> Inject attribute is missing
+ATDI010  | Declaration  | Error    | [MissingScopedIDDeclarationAnalyzer](https://google.com) <br> Missing Id for Scoped installation
+ATDI011  | Initialization  | Error    | [RequiredDependencyInstallationAnalyzer](https://google.com) <br> Missing dependency installation
