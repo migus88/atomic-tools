@@ -11,11 +11,9 @@ namespace Atomic.Injector.Generators.Analyzers
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class DuplicateSingletonInstallsAnalyzer : DiagnosticAnalyzer
     {
-        private const string DiagnosticID = "ATOM03";
+        private const string DiagnosticID = AnalyzerID.DuplicateSingletonInstalls;
         private const string Title = "Multiple Singleton installs for the same type";
-
-        private const string MessageFormat = "Singleton cannot be installed more than once.";
-
+        private const string MessageFormat = "Singleton cannot be installed more than once";
         private const string Category = "Declaration";
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);

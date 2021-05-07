@@ -12,11 +12,9 @@ namespace Atomic.Injector.Generators.Analyzers
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class MissingScopedIDDeclarationAnalyzer : DiagnosticAnalyzer
     {
-        private const string DiagnosticID = "ATOM09";
+        private const string DiagnosticID = AnalyzerID.MissingScopedIDDeclaration;
         private const string Title = "Missing Id for Scoped installation";
-
         private const string MessageFormat = "Scoped Installation must have 'ID' attribute";
-
         private const string Category = "Declaration";
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);

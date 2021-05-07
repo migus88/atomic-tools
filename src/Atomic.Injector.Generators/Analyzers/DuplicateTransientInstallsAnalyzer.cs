@@ -11,12 +11,10 @@ namespace Atomic.Injector.Generators.Analyzers
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class DuplicateTransientInstallsAnalyzer : DiagnosticAnalyzer
     {
-        private const string DiagnosticID = "ATOM01";
+        private const string DiagnosticID = AnalyzerID.DuplicateTransientInstalls;
         private const string Title = "Multiple Transient installs for the same type";
-
         private const string MessageFormat =
             "Multiple fields of the same type can't be registered as Transient. Consider adding another InstallTransient attribute to the same field with different ID.";
-
         private const string Category = "Declaration";
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);

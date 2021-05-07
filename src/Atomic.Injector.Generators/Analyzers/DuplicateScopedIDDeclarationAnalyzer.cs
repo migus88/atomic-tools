@@ -12,12 +12,10 @@ namespace Atomic.Injector.Generators.Analyzers
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class DuplicateScopedIDDeclarationAnalyzer : DiagnosticAnalyzer
     {
-        private const string DiagnosticID = "ATOM04";
+        private const string DiagnosticID = AnalyzerID.DuplicateScopedIDDeclaration;
         private const string Title = "Multiple Scoped installs for the same type with the same ID";
-
         private const string MessageFormat =
             "Multiple fields of the same type can't be registered as Scoped more than once with the same ID";
-
         private const string Category = "Declaration";
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
