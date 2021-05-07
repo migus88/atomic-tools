@@ -13,4 +13,5 @@ ATDI006  | Declaration  | Error    | ATDI006_ContainerEmptyConstructorAnalyzer, 
 ATDI007  | Declaration  | Error    | ATDI007_ContainerConstructorTriggerAnalyzer, [Documentation](https://google.com)
 ATDI008  | Declaration  | Error    | ATDI008_MultipleDifferentInstallersOnSameFieldAnalyzer, [Documentation](https://google.com)
 ATDI009  | Declaration  | Error    | ATDI009_DependencyConstructorsInjectAttributeAnalyzer, [Documentation](https://google.com)
-ATDI010  | Declaration  | Error    | ATDI010_MissingScopedIDDeclarationAnalyzer, [Documentation](https://google.com)  
+ATDI010  | Declaration  | Error    | ATDI010_MissingScopedIDDeclarationAnalyzer, [Documentation](https://google.com)
+ATDI011  | Declaration  | Error    | ATDI011_RequiredDependencyInstallationAnalyzer, [Documentation](https://google.com)

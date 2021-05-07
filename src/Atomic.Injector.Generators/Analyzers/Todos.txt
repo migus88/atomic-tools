@@ -13,3 +13,4 @@
 13. Inject attribute cannot be assigned to constructor argument if this type is not registered as scoped
 14. Type registered as singleton, cannot be registered as scoped or transient
 15. Interfaces with installation attribute must provide BindTo argument
+16. Only one constructor with inject attribute allowed
