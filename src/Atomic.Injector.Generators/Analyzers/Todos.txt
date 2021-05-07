@@ -8,7 +8,7 @@
 +8. Same field cannot have different install attributes - only same type
 +9. Dependencies either must not have constructors, or must have a constructor marked with Inject attribute
 +10. If dependency constructor references scoped installation the ID must exist
-11. All dependencies in installed classes must be installed
++11. All dependencies in installed classes must be installed
 12. Inject attribute on constructor argument must have ID
 13. Inject attribute cannot be assigned to constructor argument if this type is not registered as scoped
 14. Type registered as singleton, cannot be registered as scoped or transient

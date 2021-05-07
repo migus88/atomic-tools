@@ -43,9 +43,9 @@ namespace Atomic.Injector.Generators
             catch(Exception ex)
             {
                 var diagnostic = Diagnostic.Create(
-                    new DiagnosticDescriptor("ATOM99", $"Container Generation didn't run",
+                    new DiagnosticDescriptor("ATDI", $"Container Generation didn't run",
                         "Container Generation didn't run. For more info, look for errors.", "Container Generation",
-                        DiagnosticSeverity.Warning, true),
+                        DiagnosticSeverity.Error, true),
                     null);
                 context.ReportDiagnostic(diagnostic);
             }
