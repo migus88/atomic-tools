@@ -36,20 +36,17 @@ namespace Atomic.Injector.Generators
 
         public void Execute(GeneratorExecutionContext context)
         {
-            var diagnostics = context.Compilation.GetDiagnostics();
-
-            if (diagnostics.Any(d => d.Severity == DiagnosticSeverity.Error && d.Id.Contains("ATOM")))
-            {
-                return;
-            }
-        
             try
             {
                 HandleContext(context);
             }
             catch
             {
-                context.ShowError(nameof(DiContainerGenerator), "Unexpected error occured in Container Generation.");
+                var diagnostic = Diagnostic.Create(
+                    new DiagnosticDescriptor("ATOM99", $"Container Generation didn't run",
+                        "Container Generation didn't run. For more info, look for errors.", "Container Generation",
+                        DiagnosticSeverity.Warning, true),
+                    null);
             }
         }
 
