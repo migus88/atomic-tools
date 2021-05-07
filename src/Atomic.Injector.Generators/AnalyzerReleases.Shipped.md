@@ -11,4 +11,5 @@ ATDI004  | Declaration  | Error    | ATDI004_DuplicateScopedIDDeclarationAnalyze
 ATDI005  | Declaration  | Error    | ATDI005_NonPrivateInstallFieldAnalyzer, [Documentation](https://google.com)
 ATDI006  | Declaration  | Error    | ATDI006_ContainerEmptyConstructorAnalyzer, [Documentation](https://google.com)
 ATDI007  | Declaration  | Error    | ATDI007_ContainerConstructorTriggerAnalyzer, [Documentation](https://google.com)
+ATDI008  | Declaration  | Error    | ATDI008_MultipleDifferentInstallersOnSameFieldAnalyzer, [Documentation](https://google.com)
 ATDI010  | Declaration  | Error    | ATDI010_MissingScopedIDDeclarationAnalyzer, [Documentation](https://google.com)  

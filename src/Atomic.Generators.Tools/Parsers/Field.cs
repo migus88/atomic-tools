@@ -45,6 +45,20 @@ namespace Atomic.Generators.Tools.Parsers
             return Attributes.Any(attribute => attributeTypes.Any(at => at.FullName == attribute.TypeName));
         }
 
+        public (Type type, int count)[] CountAttributes(params Type[] attributeTypes)
+        {
+            var result = new (Type type, int count)[attributeTypes.Length];
+
+            for (int i = 0; i < attributeTypes.Length; i++)
+            {
+                var type = attributeTypes[i];
+                var count = GetAttributes(type).Count;
+                result[i] = (type, count);
+            }
+
+            return result;
+        }
+
         public List<Attribute> GetAttributes(params Type[] attributeTypes)
         {
             return Attributes.Where(attribute => attributeTypes.Any(at => at.FullName == attribute.TypeName)).ToList();
