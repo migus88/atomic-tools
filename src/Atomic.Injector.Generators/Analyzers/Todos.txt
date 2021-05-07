@@ -5,8 +5,8 @@
 +5. All install fields must be private
 +6. Container can't have an empty constructor
 +7. If container has a constructor - must trigger base empty constructor
-8. Same field cannot have different install attributes - only same type
-9. Dependencies either must not have constructors, or must have a constructor marked with Inject attribute
++8. Same field cannot have different install attributes - only same type
++9. Dependencies either must not have constructors, or must have a constructor marked with Inject attribute
 +10. If dependency constructor references scoped installation the ID must exist
 11. All dependencies in installed classes must be installed
 12. Inject attribute on constructor argument must have ID

@@ -16,6 +16,7 @@ namespace Atomic.Generators.Tools.Parsers
         public List<Field> Fields { get; }
         public List<Constructor> Constructors { get; }
         public Visibility Visibility { get; set; }
+        public Location Location { get; }
 
         private readonly INamedTypeSymbol _classSymbol;
         private readonly SemanticModel _semanticModel;
@@ -28,6 +29,7 @@ namespace Atomic.Generators.Tools.Parsers
 
             _classSymbol = GetClassSymbol();
 
+            Location = _classDeclarationSyntax.Identifier.GetLocation();
             ClassName = GetClassNameString();
             Visibility = _classDeclarationSyntax.GetVisibility();
 

@@ -53,7 +53,7 @@ namespace Atomic.Injector.Generators
 
         private void HandleContext(GeneratorExecutionContext context)
         {
-            var parser = new Parser(context);
+            var parser = new Parser(context.Compilation);
 
             var sources = new List<(string ClassName, SourceText Source)>();
 

@@ -41,12 +41,12 @@ namespace Atomic.Generators.Tools.Parsers
             UsingString = GetUsingString();
         }
         
-        public Tree(SyntaxTree tree, GeneratorExecutionContext context)
+        public Tree(SyntaxTree tree, Compilation compilation)
         {
             _tree = tree;
             _root = tree.GetRoot();
 
-            _semanticModel = context.Compilation.GetSemanticModel(tree);
+            _semanticModel = compilation.GetSemanticModel(tree);
             _namespaceDeclarationSyntax = GetNamespaceDeclarationSyntax();
 
             Classes = new List<Class>();

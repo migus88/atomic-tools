@@ -11,11 +11,11 @@ namespace Atomic.Generators.Tools.Parsers
     {
         public List<Tree> Trees { get; }
         
-        private readonly GeneratorExecutionContext _context;
+        private readonly Compilation _compilation;
 
-        public Parser(GeneratorExecutionContext context)
+        public Parser(Compilation compilation)
         {
-            _context = context;
+            _compilation = compilation;
             Trees = GetTreesWithClassDeclaration();
         }
         
@@ -28,7 +28,7 @@ namespace Atomic.Generators.Tools.Parsers
         
         private List<Tree> GetTreesWithClassDeclaration()
         {
-            return _context.Compilation.SyntaxTrees.Select(syntaxTree => new Tree(syntaxTree, _context)).ToList();
+            return _compilation.SyntaxTrees.Select(syntaxTree => new Tree(syntaxTree, _compilation)).ToList();
         }
         
         public Class GetClass(string typeFullName)
