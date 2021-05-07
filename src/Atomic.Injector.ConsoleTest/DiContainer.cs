@@ -23,5 +23,10 @@ namespace Atomic.Injector.ConsoleTest
             _application.Run();
             
         }
+
+        public DiContainer(string t) : this()
+        {
+            this._application = new Application(null, null);
+        }
     }
 }

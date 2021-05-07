@@ -9,4 +9,6 @@ ATDI002  | Declaration  | Error    | ATDI002_DuplicateScopedInstallsAnalyzer, [D
 ATDI003  | Declaration  | Error    | ATDI003_DuplicateSingletonInstallsAnalyzer, [Documentation](https://google.com)
 ATDI004  | Declaration  | Error    | ATDI004_DuplicateScopedIDDeclarationAnalyzer, [Documentation](https://google.com)
 ATDI005  | Declaration  | Error    | ATDI005_NonPrivateInstallFieldAnalyzer, [Documentation](https://google.com)
-ATDI009  | Declaration  | Error    | ATDI009_MissingScopedIDDeclarationAnalyzer, [Documentation](https://google.com)  
+ATDI006  | Declaration  | Error    | ATDI006_ContainerEmptyConstructorAnalyzer, [Documentation](https://google.com)
+ATDI007  | Declaration  | Error    | ATDI007_ContainerConstructorTriggerAnalyzer, [Documentation](https://google.com)
+ATDI010  | Declaration  | Error    | ATDI010_MissingScopedIDDeclarationAnalyzer, [Documentation](https://google.com)  

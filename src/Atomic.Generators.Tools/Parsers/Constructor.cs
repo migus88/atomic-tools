@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Atomic.Generators.Tools.Parsers
@@ -10,6 +11,9 @@ namespace Atomic.Generators.Tools.Parsers
     {
         public List<Attribute> Attributes { get; }
         public List<Parameter> Parameters { get; }
+        public Location Location { get; }
+        public bool IsTriggeringBaseConstructor { get; }
+        public bool IsTriggeringInternalConstructor { get; }
 
         private readonly ConstructorDeclarationSyntax _constructorDeclarationSyntax;
         private readonly SemanticModel _semanticModel;
@@ -18,6 +22,10 @@ namespace Atomic.Generators.Tools.Parsers
         {
             _constructorDeclarationSyntax = constructorDeclarationSyntax;
             _semanticModel = semanticModel;
+
+            Location = _constructorDeclarationSyntax.GetLocation();
+            IsTriggeringBaseConstructor = _constructorDeclarationSyntax.DescendantNodes().Any(n => n.IsKind(SyntaxKind.BaseConstructorInitializer));
+            IsTriggeringInternalConstructor = _constructorDeclarationSyntax.DescendantNodes().Any(n => n.IsKind(SyntaxKind.ThisConstructorInitializer));
 
             Attributes = new List<Attribute>();
             InitAttributes();
