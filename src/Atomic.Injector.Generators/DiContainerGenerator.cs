@@ -40,13 +40,14 @@ namespace Atomic.Injector.Generators
             {
                 HandleContext(context);
             }
-            catch
+            catch(Exception ex)
             {
                 var diagnostic = Diagnostic.Create(
                     new DiagnosticDescriptor("ATOM99", $"Container Generation didn't run",
                         "Container Generation didn't run. For more info, look for errors.", "Container Generation",
                         DiagnosticSeverity.Warning, true),
                     null);
+                context.ReportDiagnostic(diagnostic);
             }
         }
 
