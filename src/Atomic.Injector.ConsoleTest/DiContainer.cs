@@ -17,6 +17,7 @@ namespace Atomic.Injector.ConsoleTest
         private ITrueFalseWriter _scopedTrueFalseWriter;
         
         [InstallTransient(BindTo = typeof(DebugWriter))]
+        [InstallTransient(BindTo = typeof(DebugWriter))]
         private IDebugWriter _debugWriter2;
 
         public void Init()
