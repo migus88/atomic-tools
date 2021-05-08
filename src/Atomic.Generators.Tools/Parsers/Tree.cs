@@ -12,6 +12,7 @@ namespace Atomic.Generators.Tools.Parsers
         public string Namespace { get; }
         public string UsingString { get; }
         public List<Class> Classes { get; }
+        public List<Interface> Interfaces { get; }
         public SyntaxTree SyntaxTree => _tree;
 
 
@@ -28,16 +29,24 @@ namespace Atomic.Generators.Tools.Parsers
 
             _semanticModel = semanticModel;
             _namespaceDeclarationSyntax = GetNamespaceDeclarationSyntax();
+            
+            Namespace = GetNamespaceString();
 
             Classes = new List<Class>();
+            Interfaces = new List<Interface>();
             
             var classDeclarationSyntaxes = GetClassDeclarationSyntaxes();
             foreach (var classDeclarationSyntax in classDeclarationSyntaxes)
             {
-                Classes.Add(new Class(_semanticModel, classDeclarationSyntax));
+                Classes.Add(new Class(_semanticModel, classDeclarationSyntax, Namespace));
+            }
+            
+            var interfaceDeclarationSyntaxes = GetInterfaceDeclarationSyntaxes();
+            foreach (var interfaceDeclarationSyntax in interfaceDeclarationSyntaxes)
+            {
+                Interfaces.Add(new Interface(_semanticModel, interfaceDeclarationSyntax, Namespace));
             }
 
-            Namespace = GetNamespaceString();
             UsingString = GetUsingString();
         }
         
@@ -48,16 +57,24 @@ namespace Atomic.Generators.Tools.Parsers
 
             _semanticModel = compilation.GetSemanticModel(tree);
             _namespaceDeclarationSyntax = GetNamespaceDeclarationSyntax();
+            
+            Namespace = GetNamespaceString();
 
             Classes = new List<Class>();
+            Interfaces = new List<Interface>();
             
             var classDeclarationSyntaxes = GetClassDeclarationSyntaxes();
             foreach (var classDeclarationSyntax in classDeclarationSyntaxes)
             {
-                Classes.Add(new Class(_semanticModel, classDeclarationSyntax));
+                Classes.Add(new Class(_semanticModel, classDeclarationSyntax, Namespace));
+            }
+            
+            var interfaceDeclarationSyntaxes = GetInterfaceDeclarationSyntaxes();
+            foreach (var interfaceDeclarationSyntax in interfaceDeclarationSyntaxes)
+            {
+                Interfaces.Add(new Interface(_semanticModel, interfaceDeclarationSyntax, Namespace));
             }
 
-            Namespace = GetNamespaceString();
             UsingString = GetUsingString();
         }
 
@@ -103,5 +120,7 @@ namespace Atomic.Generators.Tools.Parsers
 
         private List<ClassDeclarationSyntax> GetClassDeclarationSyntaxes() =>
             _root.DescendantNodes().OfType<ClassDeclarationSyntax>().ToList();
+        private List<InterfaceDeclarationSyntax> GetInterfaceDeclarationSyntaxes() =>
+            _root.DescendantNodes().OfType<InterfaceDeclarationSyntax>().ToList();
     }
 }

@@ -11,7 +11,9 @@ namespace Atomic.Generators.Tools.Parsers
 {
     public class Class
     {
+        public string Namespace { get; set; }
         public string ClassName { get; }
+        public string FullClassName => HelperMethods.GetFullClassName(Namespace, ClassName);
         public List<Attribute> Attributes { get; }
         public List<Field> Fields { get; }
         public List<Constructor> Constructors { get; }
@@ -22,13 +24,14 @@ namespace Atomic.Generators.Tools.Parsers
         private readonly SemanticModel _semanticModel;
         private readonly ClassDeclarationSyntax _classDeclarationSyntax;
 
-        public Class(SemanticModel semanticModel, ClassDeclarationSyntax classDeclarationSyntax)
+        public Class(SemanticModel semanticModel, ClassDeclarationSyntax classDeclarationSyntax, string @namespace)
         {
             _semanticModel = semanticModel;
             _classDeclarationSyntax = classDeclarationSyntax;
 
             _classSymbol = GetClassSymbol();
 
+            Namespace = @namespace;
             Location = _classDeclarationSyntax.Identifier.GetLocation();
             ClassName = GetClassNameString();
             Visibility = _classDeclarationSyntax.GetVisibility();

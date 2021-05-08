@@ -19,4 +19,5 @@ ATDI012  | Declaration  | Error    | [ConstructorParameterInjectIDAnalyzer](http
 ATDI013  | Declaration  | Warning    | [TransientInitModeAnalyzer](https://google.com) <br> InitMode for transient install is ignored
 ATDI014  | Declaration  | Error    | [MultipleTransientInstallsWithoutIDAnalyzer](https://google.com) <br> Single Transient type can't have multiple installations without an ID
 ATDI015  | Declaration  | Error    | [MultipleSingletonInstallationsAnalyzer](https://google.com) <br> Singleton can be registered only once
+ATDI016  | Declaration  | Error    | [InterfacesMustHaveImplementationAnalyzer](https://google.com) <br> Interface installation missing 'BindTo' argument
 ATDI017  | Declaration  | Error    | [DuplicateTransientIDDeclarationAnalyzer](https://google.com) <br> Multiple Transient installs for the same type with the same ID

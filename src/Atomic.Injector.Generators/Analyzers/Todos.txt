@@ -12,7 +12,8 @@
 +12. Inject attribute on constructor argument must have ID
 +13. InitMode for transient install is ignored (Warning)
 +14. No multiple installs for the same transient field without ID
-15. Type registered as singleton, cannot be registered as scoped or transient
-16. Interfaces with installation attribute must provide BindTo argument
++15. Type registered as singleton, cannot be registered as scoped or transient
++16. Interfaces with installation attribute must provide BindTo argument
 +17. No same ids for the same type transient installs
 18. Only one constructor with inject attribute allowed
+19. Validate ID argument exists in installation
