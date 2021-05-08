@@ -18,6 +18,7 @@ namespace Atomic.Injector.Generators.Analyzers
         public const string ConstructorParameterInjectID = Prefix + "012";
         public const string TransientInitMode = Prefix + "013";
         public const string MultipleTransientInstallsWithoutID = Prefix + "014";
+        public const string MultipleSingletonInstallations = Prefix + "015";
         
         
         public const string DuplicateTransientIDDeclaration = Prefix + "017";
