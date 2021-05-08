@@ -17,4 +17,5 @@ ATDI010  | Declaration  | Error    | [MissingScopedIDDeclarationAnalyzer](https:
 ATDI011  | Initialization  | Error    | [RequiredDependencyInstallationAnalyzer](https://google.com) <br> Missing dependency installation
 ATDI012  | Declaration  | Error    | [ConstructorParameterInjectIDAnalyzer](https://google.com) <br> Inject attribute assigned to a constructor parameter must have an ID
 ATDI013  | Declaration  | Warning    | [TransientInitModeAnalyzer](https://google.com) <br> InitMode for transient install is ignored
+ATDI014  | Declaration  | Error    | [MultipleTransientInstallsWithoutIDAnalyzer](https://google.com) <br> Single Transient type can't have multiple installations without an ID
 ATDI017  | Declaration  | Error    | [DuplicateTransientIDDeclarationAnalyzer](https://google.com) <br> Multiple Transient installs for the same type with the same ID
