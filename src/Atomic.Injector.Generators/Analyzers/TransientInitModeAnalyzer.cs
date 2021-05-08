@@ -12,7 +12,7 @@ namespace Atomic.Injector.Generators.Analyzers
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class TransientInitModeAnalyzer : DiagnosticAnalyzer
     {
-        private const string DiagnosticID = AnalyzerID.TransientInitModeAnalyzer;
+        private const string DiagnosticID = AnalyzerID.TransientInitMode;
         private const string Title = "InitMode for transient install is ignored";
         private const string MessageFormat = "InitMode for transient install is ignored";
         private const string Category = "Declaration";
