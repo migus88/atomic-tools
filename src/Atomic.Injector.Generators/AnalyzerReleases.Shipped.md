@@ -21,3 +21,4 @@ ATDI014  | Declaration  | Error    | [MultipleTransientInstallsWithoutIDAnalyzer
 ATDI015  | Declaration  | Error    | [MultipleSingletonInstallationsAnalyzer](https://google.com) <br> Singleton can be registered only once
 ATDI016  | Declaration  | Error    | [InterfacesMustHaveImplementationAnalyzer](https://google.com) <br> Interface installation missing 'BindTo' argument
 ATDI017  | Declaration  | Error    | [DuplicateTransientIDDeclarationAnalyzer](https://google.com) <br> Multiple Transient installs for the same type with the same ID
+ATDI018  | Declaration  | Error    | [MultipleInjectConstructorsAnalyzer](https://google.com) <br> Only one constructor with inject attribute allowed

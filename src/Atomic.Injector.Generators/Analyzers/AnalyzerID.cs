@@ -20,7 +20,7 @@ namespace Atomic.Injector.Generators.Analyzers
         public const string MultipleTransientInstallsWithoutID = Prefix + "014";
         public const string MultipleSingletonInstallations = Prefix + "015";
         public const string InterfacesMustHaveImplementation = Prefix + "016";
-        
         public const string DuplicateTransientIDDeclaration = Prefix + "017";
+        public const string MultipleInjectConstructors = Prefix + "018";
     }
 }

@@ -39,6 +39,11 @@ namespace Atomic.Generators.Tools.Parsers
             return Attributes.Any(parser => parser.TypeName == attributeType.FullName);
         }
 
+        public Attribute GetAttribute(Type attributeType)
+        {
+            return Attributes.FirstOrDefault(parser => parser.TypeName == attributeType.FullName);
+        }
+
         private void InitParameters()
         {
             var parameters = _constructorDeclarationSyntax.ParameterList?.Parameters.ToList() ??
