@@ -1,13 +1,14 @@
 using Atomic.Injector.Generators.Enums;
+using Atomic.Injector.Generators.Models;
 
 namespace Atomic.Injector.Generators.Definitions
 {
     public class DependencyDefinition
     {
-        public InstallMode Mode { get; set; }
+        public InstallMode Mode { get; set; } = InstallMode.Singleton;
         public string TypeName { get; set; }
         public string PropertyName { get; set; } = string.Empty;
-        public string ID { get; set; }
+        public string ID { get; set; } = ContainerModel.DefaultID;
 
         public DependencyDefinition(string typeName = "")
         {
@@ -21,7 +22,7 @@ namespace Atomic.Injector.Generators.Definitions
                 return string.Empty;
             }
             
-            return Mode.HasFlag(InstallMode.Scoped) ? $"Get{PropertyName}({ID})" : PropertyName;
+            return Mode.HasFlag(InstallMode.Singleton) ? PropertyName : $"Get{PropertyName}({ID})";
         }
     }
 }

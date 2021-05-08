@@ -8,38 +8,35 @@ using Atomic.Injector.Generators.Interfaces;
 
 namespace Atomic.Injector.Generators.Models
 {
-    public class TransientFieldModel : BaseFieldModel
+    public class TransientFieldModel : ScopedFieldModel
     {
-        private static readonly string _propertyTemplate;
         private static readonly string _propertyInitializationTemplate;
 
         static TransientFieldModel()
         {
-            _propertyTemplate = ResourcesHelpers.GetTextResource(TemplatePaths.TransientProperty);
-            _propertyInitializationTemplate = ResourcesHelpers.GetTextResource(TemplatePaths.TransientInitialization);
+            _propertyInitializationTemplate =
+                ResourcesHelpers.GetTextResource(TemplatePaths.Transient.TransientInitialization);
         }
-        
+
         public TransientFieldModel(List<InstallDefinition> installDefinitions) : base(installDefinitions)
         {
         }
-
-        public override string GetPropertyString() => GetPropertyString(_propertyTemplate);
-
-        private string GetPropertyString(string template)
+        
+        public override string GetPrivateFieldString()
         {
-            return template
-                .Replace(Placeholders.ClassName, _firstDefinition.InterfaceName)
-                .Replace(Placeholders.PropertyName, _firstDefinition.PropertyName)
-                .Replace(Placeholders.PrivateFieldName, _firstDefinition.PrivateFieldName)
-                .Replace(Placeholders.Initialization, GetInitializationString());
+            return
+                $"{GetFactoriesField()}{LineBreakSymbol}";
+        }
+
+        public override string GetConstructorString()
+        {
+            return $"{TabSymbol}{TabSymbol}{TabSymbol}" +
+                   $"{GetFactoriesInitialization()}{LineBreakSymbol}";
         }
         
-        private string GetInitializationString()
-        {
-            return _propertyInitializationTemplate
-                .Replace(Placeholders.PrivateFieldName, _firstDefinition.PrivateFieldName)
-                .Replace(Placeholders.ClassName, _firstDefinition.BoundType)
-                .Replace(Placeholders.Dependencies, GetDependenciesString(_firstDefinition.Dependencies));
-        }
+        protected override string GetFactoryGetter(InstallDefinition installDefinition) => _propertyInitializationTemplate
+            .Replace(Placeholders.Scope, installDefinition.ID)
+            .Replace(Placeholders.ClassName, installDefinition.BoundType)
+            .Replace(Placeholders.Dependencies, GetDependenciesString(installDefinition.Dependencies));
     }
 }

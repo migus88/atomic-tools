@@ -124,7 +124,7 @@ namespace Atomic.Injector.Generators
                 installDefinition.BoundType = bindArgument != null ? bindArgument.Value : field.TypeName;
 
                 var idArgument = attribute.GetArgument(InstallAttributeArguments.ID);
-                installDefinition.ID = idArgument?.Value ?? string.Empty;
+                installDefinition.ID = idArgument?.Value ?? ContainerModel.DefaultID;
 
                 definitions.Add(installDefinition);
             }
@@ -174,8 +174,6 @@ namespace Atomic.Injector.Generators
 
                 if (parameter.HasAttribute(InjectAttributeType))
                 {
-                    dependency.Mode = InstallMode.Scoped;
-                    
                     var attribute = parameter.GetAttribute(InjectAttributeType);
 
                     if (attribute.HasArgument(InstallAttributeArguments.ID))
@@ -183,12 +181,14 @@ namespace Atomic.Injector.Generators
                         dependency.ID = attribute.GetArgument(InstallAttributeArguments.ID).Value;
                     }
                 }
-                else
-                {
-                    dependency.Mode = InstallMode.Singleton | InstallMode.Transient;
-                }
 
                 var dependencyField = FindDependencyField(dependency, allFields);
+
+                if (dependencyField.HasAnyAttribute(ScopedAttributeType, TransientAttributeType))
+                {
+                    dependency.Mode = InstallMode.Scoped | InstallMode.Transient;
+                }
+                
                 dependency.PropertyName = dependencyField.Name.ToPascalCase();
 
                 installDefinition.Dependencies.Add(dependency);
@@ -197,23 +197,23 @@ namespace Atomic.Injector.Generators
 
         private Field FindDependencyField(DependencyDefinition dependency, List<Field> allFields)
         {
-            if (dependency.Mode.HasFlag(InstallMode.Scoped))
+            /*if (dependency.Mode.HasFlag(InstallMode.Scoped) || dependency.Mode.HasFlag(InstallMode.Transient))
             {
                 return (
                     from field in allFields
                     where field.HasAttribute(ScopedAttributeType) && field.TypeName == dependency.TypeName
-                    let attributes = field.GetAttributes(ScopedAttributeType)
+                    let attributes = field.GetAttributes(ScopedAttributeType, TransientAttributeType)
                     from attribute in attributes
                     where attribute.HasArgument(InstallAttributeArguments.ID)
                     let argument = attribute.GetArgument(InstallAttributeArguments.ID)
                     where argument.Value == dependency.ID
                     select field
                 ).FirstOrDefault();
-            }
+            }*/
 
             return (
                 from field in allFields
-                where field.HasAnyAttribute(SingletonAttributeType, TransientAttributeType) &&
+                where field.HasAnyAttribute(SingletonAttributeType, TransientAttributeType, ScopedAttributeType) &&
                       field.TypeName == dependency.TypeName
                 select field
             ).FirstOrDefault();

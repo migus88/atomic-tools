@@ -7,10 +7,15 @@ namespace Atomic.Injector.Generators.Helpers.Templates
         
         public const string Container = TemplatesNamespace + "Container";
         public const string Property = TemplatesNamespace + "Property";
-        public const string TransientProperty = TemplatesNamespace + "TransientProperty";
         public const string PropertyInitialization = TemplatesNamespace + "PropertyInitialization";
         public const string ConstructorInitialization = TemplatesNamespace + "ConstructorInitialization";
-        public const string TransientInitialization = TemplatesNamespace + "TransientInitialization";
+
+        public static class Transient
+        {
+            private const string TransientPrefix = TemplatesNamespace + "Transient.";
+            
+            public const string TransientInitialization = TransientPrefix + "TransientInitialization";
+        }
 
         public static class Scope
         {

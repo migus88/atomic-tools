@@ -14,3 +14,4 @@
 14. Type registered as singleton, cannot be registered as scoped or transient
 15. Interfaces with installation attribute must provide BindTo argument
 16. Only one constructor with inject attribute allowed
++17. No same ids for the same type transient installs

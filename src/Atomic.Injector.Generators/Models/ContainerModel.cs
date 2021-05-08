@@ -7,6 +7,8 @@ namespace Atomic.Injector.Generators.Models
 {
     public class ContainerModel
     {
+        public const string DefaultID = "DefaultID";
+        
         private const string PropertySeparator = "\r\n\t\t";
         private const string PrivateFieldSeparator = "\r\n\t\t";
         private const string ConstructorSeparator = "\r\n";
@@ -39,6 +41,7 @@ namespace Atomic.Injector.Generators.Models
                 .Replace(Placeholders.UsingStatement, UsingStatement)
                 .Replace(Placeholders.Namespace, Namespace)
                 .Replace(Placeholders.ClassName, ClassName)
+                .Replace(Placeholders.DefaultScopeID, DefaultID)
                 .Replace(Placeholders.Properties, GetPropertiesString())
                 .Replace(Placeholders.Methods, GetMethodsString())
                 .Replace(Placeholders.PrivateFields, GetPrivateFieldsString())

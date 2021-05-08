@@ -12,14 +12,14 @@ namespace Atomic.Injector.Generators.Models
     //TODO: Handle scope destruction
     public class ScopedFieldModel : BaseFieldModel
     {
-        private static readonly string _factoriesFieldTemplate;
-        private static readonly string _factoriesInitializationTemplate;
-        private static readonly string _factoryGetterTemplate;
-        private static readonly string _fieldGetterTemplate;
-        private static readonly string _fieldNullGetterTemplate;
-        private static readonly string _fieldInitializationTemplate;
-        private static readonly string _getterTemplate;
-        private static readonly string _instanceFieldTemplate;
+        protected static readonly string _factoriesFieldTemplate;
+        protected static readonly string _factoriesInitializationTemplate;
+        protected static readonly string _factoryGetterTemplate;
+        protected static readonly string _fieldGetterTemplate;
+        protected static readonly string _fieldNullGetterTemplate;
+        protected static readonly string _fieldInitializationTemplate;
+        protected static readonly string _getterTemplate;
+        protected static readonly string _instanceFieldTemplate;
 
         static ScopedFieldModel()
         {
@@ -41,17 +41,15 @@ namespace Atomic.Injector.Generators.Models
         public override string GetPrivateFieldString()
         {
             return
-                $"{GetFactoriesField()}{LineBreakSymbol}{TabSymbol}{TabSymbol}{GetInstanceField()}{LineBreakSymbol}{LineBreakSymbol}";
+                $"{GetFactoriesField()}{LineBreakSymbol}{TabSymbol}{TabSymbol}{GetInstanceField()}{LineBreakSymbol}";
         }
 
         public override string GetMethodString()
         {
-            var generatedCode = _getterTemplate
+            return _getterTemplate
                 .Replace(Placeholders.ClassName, _firstDefinition.InterfaceName)
                 .Replace(Placeholders.PropertyName, _firstDefinition.PropertyName)
                 .Replace(Placeholders.PrivateFieldName, _firstDefinition.PrivateFieldName);
-
-            return $"{generatedCode}{LineBreakSymbol}{LineBreakSymbol}";
         }
 
         public override string GetConstructorString()
@@ -62,12 +60,12 @@ namespace Atomic.Injector.Generators.Models
                    $"{GetFieldsInitialization()}{LineBreakSymbol}";
         }
 
-        private string GetFieldsInitialization() => _fieldInitializationTemplate
+        protected virtual string GetFieldsInitialization() => _fieldInitializationTemplate
             .Replace(Placeholders.PrivateFieldName, _firstDefinition.PrivateFieldName)
             .Replace(Placeholders.ClassName, _firstDefinition.InterfaceName)
             .Replace(Placeholders.Initialization, GetFieldsGetters());
 
-        private string GetFieldsGetters()
+        protected virtual string GetFieldsGetters()
         {
             var builder = new StringBuilder();
 
@@ -81,17 +79,17 @@ namespace Atomic.Injector.Generators.Models
             return str.Remove(str.LastIndexOf(Environment.NewLine, StringComparison.Ordinal));
         }
 
-        private string GetFieldGetter(InstallDefinition installDefinition) =>
+        protected virtual string GetFieldGetter(InstallDefinition installDefinition) =>
             (installDefinition.IsLazy ? _fieldNullGetterTemplate : _fieldGetterTemplate)
             .Replace(Placeholders.Scope, installDefinition.ID)
             .Replace(Placeholders.PropertyName, installDefinition.PropertyName);
 
-        private string GetFactoriesInitialization() => _factoriesInitializationTemplate
+        protected virtual string GetFactoriesInitialization() => _factoriesInitializationTemplate
             .Replace(Placeholders.PrivateFieldName, _firstDefinition.PrivateFieldName)
             .Replace(Placeholders.ClassName, _firstDefinition.InterfaceName)
             .Replace(Placeholders.Initialization, GetFactoriesGetters());
 
-        private string GetFactoriesGetters()
+        protected virtual string GetFactoriesGetters()
         {
             var builder = new StringBuilder();
 
@@ -105,17 +103,17 @@ namespace Atomic.Injector.Generators.Models
             return str.Remove(str.LastIndexOf(Environment.NewLine, StringComparison.Ordinal));
         }
 
-        private string GetFactoryGetter(InstallDefinition installDefinition) => _factoryGetterTemplate
+        protected virtual string GetFactoryGetter(InstallDefinition installDefinition) => _factoryGetterTemplate
             .Replace(Placeholders.Scope, installDefinition.ID)
             .Replace(Placeholders.PrivateFieldName, installDefinition.PrivateFieldName)
             .Replace(Placeholders.ClassName, installDefinition.BoundType)
             .Replace(Placeholders.Dependencies, GetDependenciesString(installDefinition.Dependencies));
 
-        private string GetFactoriesField() => _factoriesFieldTemplate
+        protected virtual string GetFactoriesField() => _factoriesFieldTemplate
             .Replace(Placeholders.ClassName, _firstDefinition.InterfaceName)
             .Replace(Placeholders.PrivateFieldName, _firstDefinition.PrivateFieldName);
 
-        private string GetInstanceField() => _instanceFieldTemplate
+        protected virtual string GetInstanceField() => _instanceFieldTemplate
             .Replace(Placeholders.ClassName, _firstDefinition.InterfaceName)
             .Replace(Placeholders.PrivateFieldName, _firstDefinition.PrivateFieldName);
     }

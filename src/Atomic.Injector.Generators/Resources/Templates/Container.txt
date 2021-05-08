@@ -4,6 +4,8 @@ namespace {{NAMESPACE}}
 {
     public sealed partial class {{CLASS_NAME}}
     {
+        private const string {{DEFAULT_ID}} = "__DEFAULT";
+        
         {{PROPERTIES}}
         
         {{PRIVATE_FIELDS}}

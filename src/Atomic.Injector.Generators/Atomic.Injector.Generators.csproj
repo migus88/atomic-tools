@@ -33,8 +33,7 @@
         <EmbeddedResource Include="Resources\Templates\Scope\Getter.txt" />
         <EmbeddedResource Include="Resources\Templates\Scope\FactoryGetter.txt" />
         <EmbeddedResource Include="Resources\Templates\Scope\InstanceField.txt" />
-        <EmbeddedResource Include="Resources\Templates\TransientInitialization.txt" />
-        <EmbeddedResource Include="Resources\Templates\TransientProperty.txt" />
+        <EmbeddedResource Include="Resources\Templates\Transient\TransientInitialization.txt" />
     </ItemGroup>
 
     <PropertyGroup>

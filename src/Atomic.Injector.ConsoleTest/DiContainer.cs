@@ -16,7 +16,8 @@ namespace Atomic.Injector.ConsoleTest
         [InstallScoped(ID = "Test2", BindTo = typeof(TrueFalseWriter), InitMode = InitMode.Lazy)]
         private ITrueFalseWriter _scopedTrueFalseWriter;
         
-        [InstallTransient(BindTo = typeof(DebugWriter))]
+        [InstallTransient(BindTo = typeof(DebugWriter), ID = "d")]
+        [InstallTransient(BindTo = typeof(DebugWriter), ID = "d1")]
         [InstallTransient(BindTo = typeof(DebugWriter))]
         private IDebugWriter _debugWriter2;
 

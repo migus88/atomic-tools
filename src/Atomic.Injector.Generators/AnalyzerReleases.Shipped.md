@@ -15,3 +15,4 @@ ATDI008  | Declaration  | Error    | [MultipleDifferentInstallersOnSameFieldAnal
 ATDI009  | Declaration  | Error    | [DependencyConstructorsInjectAttributeAnalyzer](https://google.com) <br> Inject attribute is missing
 ATDI010  | Declaration  | Error    | [MissingScopedIDDeclarationAnalyzer](https://google.com) <br> Missing Id for Scoped installation
 ATDI011  | Initialization  | Error    | [RequiredDependencyInstallationAnalyzer](https://google.com) <br> Missing dependency installation
+ATDI017  | Declaration  | Error    | [DuplicateTransientIDDeclarationAnalyzer](https://google.com) <br> Multiple Transient installs for the same type with the same ID
