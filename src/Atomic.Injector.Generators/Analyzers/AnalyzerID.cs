@@ -16,6 +16,7 @@ namespace Atomic.Injector.Generators.Analyzers
         public const string MissingScopedIDDeclaration = Prefix + "010";
         public const string RequiredDependencyInstallation = Prefix + "011";
         public const string ConstructorParameterInjectID = Prefix + "012";
+        public const string TransientInitModeAnalyzer = Prefix + "013";
         
         
         public const string DuplicateTransientIDDeclaration = Prefix + "017";
