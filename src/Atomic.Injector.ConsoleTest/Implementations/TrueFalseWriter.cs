@@ -1,5 +1,5 @@
 using Atomic.Injector.ConsoleTest.Interfaces;
-using Atomic.Injector.Core.Attributes;
+using Atomic.Toolbox.DI.Core.Attributes;
 
 namespace Atomic.Injector.ConsoleTest.Implementations
 {

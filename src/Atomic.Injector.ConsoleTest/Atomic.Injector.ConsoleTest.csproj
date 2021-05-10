@@ -6,8 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Atomic.Injector.Core\Atomic.Injector.Core.csproj" />
-        <ProjectReference Include="..\Atomic.Injector.Generators\Atomic.Injector.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+        <ProjectReference Include="..\Atomic.Toolbox.DI.Core\Atomic.Toolbox.DI.Core.csproj"/>
+        <ProjectReference Include="..\Atomic.Toolbox.DI\Atomic.Toolbox.DI.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
     </ItemGroup>
 
 </Project>

@@ -1,18 +1,18 @@
 using Atomic.Injector.ConsoleTest.Implementations;
 using Atomic.Injector.ConsoleTest.Interfaces;
-using Atomic.Injector.Core.Attributes;
-using Atomic.Injector.Core.Enums;
-using Atomic.Injector.Core.Interfaces;
+using Atomic.Toolbox.DI.Core.Attributes;
+using Atomic.Toolbox.DI.Core.Enums;
+using Atomic.Toolbox.DI.Core.Interfaces;
 
 namespace Atomic.Injector.ConsoleTest
 {
     public partial class DiContainer : IDiContainer
     {
+        
         [InstallSingleton]
         private Application _application;
         
-        //TODO: handle const assignment of ID
-        [InstallScoped(ID = "Test", BindTo = typeof(TrueFalseWriter))]
+        [InstallScoped(ID = TestClass.TestConst, BindTo = typeof(TrueFalseWriter))]
         [InstallScoped(ID = "Test2", BindTo = typeof(TrueFalseWriter), InitMode = InitMode.Lazy)]
         private ITrueFalseWriter _scopedTrueFalseWriter;
         
@@ -32,4 +32,9 @@ namespace Atomic.Injector.ConsoleTest
             this._application = new Application(null, null);
         }
     }
+}
+public class TestClass
+{
+        
+    public const string TestConst = "sdf";
 }
