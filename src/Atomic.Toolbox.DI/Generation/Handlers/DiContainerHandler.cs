@@ -26,7 +26,7 @@ namespace Atomic.Toolbox.DI
     {
         private readonly Parser _parser;
 
-        private List<(string ClassName, SourceText Source)> _containers;
+        private List<SourceModel> _containers;
 
         public DiContainerHandler(Parser parser)
         {
@@ -34,7 +34,7 @@ namespace Atomic.Toolbox.DI
         }
 
 
-        public List<(string ClassName, SourceText Source)> GetContainers()
+        public List<SourceModel> GetContainers()
         {
             if (_containers != null && _containers.Any())
             {
@@ -42,7 +42,7 @@ namespace Atomic.Toolbox.DI
             }
 
             var trees = _parser.GetTreesWithInterface(DiInterfaces.ContainerType);
-            _containers = new List<(string ClassName, SourceText Source)>();
+            _containers = new List<SourceModel>();
 
             foreach (var tree in trees)
             {
@@ -55,10 +55,10 @@ namespace Atomic.Toolbox.DI
             return _containers;
         }
 
-        private List<(string ClassName, SourceText Source)> GenerateContainers(List<Class> containerClasses,
+        private List<SourceModel> GenerateContainers(List<Class> containerClasses,
             string usingString, string namespaceString)
         {
-            var containers = new List<(string ClassName, SourceText Source)>();
+            var containers = new List<SourceModel>();
             foreach (var @class in containerClasses)
             {
                 var container = GenerateContainer(usingString, namespaceString, @class);
@@ -68,7 +68,7 @@ namespace Atomic.Toolbox.DI
             return containers;
         }
 
-        private (string ClassName, SourceText Source) GenerateContainer(string usingString, string namespaceString,
+        private SourceModel GenerateContainer(string usingString, string namespaceString,
             Class @class)
         {
             var className = @class.ClassName;
@@ -79,8 +79,11 @@ namespace Atomic.Toolbox.DI
                 new ContainerModel(usingString, namespaceString, className, fieldModels.ToArray());
 
             var generatedClass = containerModel.ToString();
-            return ($"{namespaceString}.{className}.Generated.cs",
-                SourceText.From(generatedClass, Encoding.UTF8));
+            return new SourceModel
+            {
+                ClassName = $"{namespaceString}.{className}.Generated.cs",
+                Source = SourceText.From(generatedClass, Encoding.UTF8)
+            };
         }
 
         private List<IFieldModel> GetFieldModels(Class @class)

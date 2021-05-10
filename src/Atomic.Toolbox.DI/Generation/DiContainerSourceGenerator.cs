@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Atomic.Toolbox.Core.Parsers;
+using Atomic.Toolbox.DI.Generation.Models;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
@@ -53,7 +54,7 @@ namespace Atomic.Toolbox.DI.Generation
         }
 
         private void AddSourcesToContext(GeneratorExecutionContext context,
-            List<(string ClassName, SourceText Source)> sources)
+            List<SourceModel> sources)
         {
             foreach (var source in sources)
             {
