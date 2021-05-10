@@ -14,17 +14,6 @@ namespace Atomic.Toolbox.DI.Generation
     [Generator]
     public class DiContainerSourceGenerator : ISourceGenerator
     {
-        public void Initialize(GeneratorInitializationContext context)
-        {
-#if DEBUG && START_DEBUG
-
-            if (!Debugger.IsAttached)
-            {
-                Debugger.Launch();
-            }
-#endif
-        }
-
         public void Execute(GeneratorExecutionContext context)
         {
             try
@@ -41,16 +30,29 @@ namespace Atomic.Toolbox.DI.Generation
                 context.ReportDiagnostic(diagnostic);
             }
         }
+        
+        public void Initialize(GeneratorInitializationContext context)
+        {
+#if DEBUG && START_DEBUG
+
+            if (!Debugger.IsAttached)
+            {
+                Debugger.Launch();
+            }
+#endif
+        }
 
         private void HandleContext(GeneratorExecutionContext context)
         {
             var parser = new Parser(context.Compilation);
 
-            //Containers
-            var containersGenerator = new DiContainerHandler(parser);
-            var containers = containersGenerator.GetContainers();
+            var containersGenerator = new DiContainerGenerationHandler(parser);
+            containersGenerator.Generate();
 
-            AddSourcesToContext(context, containers);
+            if (containersGenerator.HasSources)
+            {
+                AddSourcesToContext(context, containersGenerator.Sources);   
+            }
         }
 
         private void AddSourcesToContext(GeneratorExecutionContext context,

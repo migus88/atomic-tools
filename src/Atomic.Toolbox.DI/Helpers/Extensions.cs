@@ -3,7 +3,9 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Atomic.Toolbox.DI.Core.Enums;
+using Atomic.Toolbox.DI.Enums;
 using Microsoft.CodeAnalysis;
+using Attribute = Atomic.Toolbox.Core.Parsers.Attribute;
 
 namespace Atomic.Toolbox.DI.Helpers
 {
@@ -33,6 +35,21 @@ namespace Atomic.Toolbox.DI.Helpers
         public static string ToFullString(this InitMode mode)
         {
             return $"{nameof(InitMode)}.{mode}";
+        }
+
+        public static InstallMode GetInstallMode(this Attribute attribute)
+        {
+            if (attribute.TypeName == DiAttributes.SingletonType.FullName)
+            {
+                return InstallMode.Singleton;
+            }
+
+            if (attribute.TypeName == DiAttributes.ScopedType.FullName)
+            {
+                return InstallMode.Scoped;
+            }
+
+            return InstallMode.Transient;
         }
     }
 }
