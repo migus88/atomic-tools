@@ -1,0 +1,6 @@
+private readonly Dictionary<{{TYPE}}, string> _namesByValue = new Dictionary<{{TYPE}}, string>
+        {
+{{INITIALIZATION}}
+        };
+
+        public readonly ReadOnlyDictionary<{{TYPE}}, string> NamesByValue;

@@ -1,0 +1,12 @@
+public static class Values
+        {
+{{CONSTS}}
+
+            private static readonly {{TYPE}}[] _allValues = new {{TYPE}}[]
+            {
+{{INITIALIZATION}}
+            };
+
+            private static readonly ReadOnlyCollection<{{TYPE}}> _readOnlyValues = new ReadOnlyCollection<{{TYPE}}>(_allValues);
+            public static ReadOnlyCollection<{{TYPE}}> All() => _readOnlyValues;
+        }

@@ -1,0 +1,1 @@
+            NamesByValue = new ReadOnlyDictionary<{{TYPE}}, string>(_namesByValue);

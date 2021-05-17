@@ -1,0 +1,6 @@
+private readonly Dictionary<{{ENUM_NAME}}, {{TYPE}}> _valuesByEnum = new Dictionary<{{ENUM_NAME}}, {{TYPE}}>
+        {
+{{INITIALIZATION}}
+        };
+
+        public readonly ReadOnlyDictionary<{{ENUM_NAME}}, {{TYPE}}> ValuesByEnum;

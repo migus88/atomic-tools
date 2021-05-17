@@ -1,0 +1,1 @@
+            EnumsByName = new ReadOnlyDictionary<string, {{ENUM_NAME}}>(_enumsByName);

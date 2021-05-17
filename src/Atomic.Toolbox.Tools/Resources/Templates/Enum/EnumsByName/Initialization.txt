@@ -1,0 +1,1 @@
+            [Names.{{NAME}}] = {{ENUM_NAME}}.{{NAME}},

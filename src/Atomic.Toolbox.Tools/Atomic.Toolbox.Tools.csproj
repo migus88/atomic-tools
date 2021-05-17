@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>9</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.2" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Net.Compilers" Version="3.10.0-1.final">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <!--Generator dependencies-->
+        <ProjectReference Include="..\Atomic.Toolbox.Tools.Core\Atomic.Toolbox.Tools.Core.csproj" GeneratePathProperty="true" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Generation" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Resources\Templates\Enum\EnumsByName\Initialization.txt" />
+      <Content Include="Resources\Templates\Enum\EnumsByValue\Initialization.txt" />
+      <Content Include="Resources\Templates\Enum\NamesByEnum\Declaration.txt" />
+      <Content Include="Resources\Templates\Enum\NamesByEnum\Initialization.txt" />
+      <Content Include="Resources\Templates\Enum\NamesByValue\Initialization.txt" />
+      <Content Include="Resources\Templates\Enum\ValuesByEnum\Initialization.txt" />
+      <Content Include="Resources\Templates\Enum\ValuesByName\Declaration.txt" />
+      <Content Include="Resources\Templates\Enum\ValuesByName\Initialization.txt" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
+    </PropertyGroup>
+
+    <Target Name="GetDependencyTargetPaths">
+        <ItemGroup>
+            <!--TODO: Make references dynamic. Release build should take only release DLLs-->
+            <TargetPathWithTargetPlatformMoniker Include="..\Atomic.Toolbox.Tools.Core\bin\Debug\netstandard2.0\Atomic.Toolbox.Tools.Core.dll" IncludeRuntimeDependency="false" />
+        </ItemGroup>
+    </Target>
+
+</Project>

@@ -1,0 +1,1 @@
+            NamesByEnum = new ReadOnlyDictionary<{{ENUM_NAME}}, string>(_namesByEnum);

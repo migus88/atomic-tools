@@ -1,0 +1,30 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+namespace {{NAMESPACE}}
+{
+    public class {{ENUM_NAME}}{{EXTENSION}}
+    {
+        {{VALUES_BY_NAME}}
+        
+        {{NAMES_BY_VALUE}}
+        
+        {{NAMES_BY_ENUM}}
+        
+        {{ENUMS_BY_NAME}}
+        
+        {{ENUMS_BY_VALUE}}
+        
+        {{VALUES_BY_ENUM}}
+
+
+        public {{CLASS_NAME}}{{EXTENSION}}()
+        {
+{{CONSTRUCTOR}}
+        }
+        
+        {{VALUES}}
+        
+        {{NAMES}}
+    }
+}

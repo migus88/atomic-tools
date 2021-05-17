@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atomic.Toolbox.DI.Core", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atomic.Toolbox.Core", "Atomic.Toolbox.Core\Atomic.Toolbox.Core.csproj", "{5784C272-04F4-4F4F-B698-3A98BB918886}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atomic.Toolbox.Tools", "Atomic.Toolbox.Tools\Atomic.Toolbox.Tools.csproj", "{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atomic.Toolbox.Tools.Core", "Atomic.Toolbox.Tools.Core\Atomic.Toolbox.Tools.Core.csproj", "{B2E91345-DDFF-446B-86C6-33A1E4D0E966}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +145,62 @@ Global
 		{5784C272-04F4-4F4F-B698-3A98BB918886}.winphone_Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5784C272-04F4-4F4F-B698-3A98BB918886}.winphone_Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{5784C272-04F4-4F4F-B698-3A98BB918886}.winphone_Release|Any CPU.Build.0 = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_2_0_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_2_0_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_2_0_Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_2_0_Release|Any CPU.Build.0 = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_3_5_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_3_5_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_3_5_Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_3_5_Release|Any CPU.Build.0 = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_4_0_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_4_0_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_4_0_Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_4_0_Release|Any CPU.Build.0 = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_4_5_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_4_5_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_4_5_Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.net_4_5_Release|Any CPU.Build.0 = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.silverlight_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.silverlight_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.silverlight_Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.silverlight_Release|Any CPU.Build.0 = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.winphone_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.winphone_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.winphone_Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAC1008-E36D-4E8D-9D4A-5F2CAB181823}.winphone_Release|Any CPU.Build.0 = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_2_0_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_2_0_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_2_0_Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_2_0_Release|Any CPU.Build.0 = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_3_5_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_3_5_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_3_5_Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_3_5_Release|Any CPU.Build.0 = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_4_0_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_4_0_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_4_0_Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_4_0_Release|Any CPU.Build.0 = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_4_5_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_4_5_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_4_5_Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.net_4_5_Release|Any CPU.Build.0 = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.silverlight_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.silverlight_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.silverlight_Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.silverlight_Release|Any CPU.Build.0 = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.winphone_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.winphone_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.winphone_Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E91345-DDFF-446B-86C6-33A1E4D0E966}.winphone_Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,12 @@
+public static class Names
+        {
+{{CONSTS}}
+
+            private static readonly string[] _allNames = new string[]
+            {
+{{INITIALIZATION}}
+            };
+            
+            private static readonly ReadOnlyCollection<string> _readOnlyNames = new ReadOnlyCollection<string>(_allNames);
+            public static ReadOnlyCollection<string> All() => _readOnlyNames;
+        }
